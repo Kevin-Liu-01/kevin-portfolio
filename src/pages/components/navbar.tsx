@@ -69,9 +69,8 @@ const Navbar = (props: {
     }
   };
   return (
-    <nav className="border-b border-gray-600 bg-gray-100 font-general text-gray-900 shadow-lg duration-75 dark:bg-gray-800 dark:text-gray-400">
+    <nav className="border-b-[1.5px] border-gray-600 bg-gray-100 font-general text-gray-900 shadow-lg duration-75 dark:bg-gray-800 dark:text-gray-400">
       <div className="flex flex-row justify-center">
-        {" "}
         <h1 className="absolute top-0 left-0 mt-2 ml-2 hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white lg:inline lg:text-4xl 2xl:text-[3rem]">
           <span className="dark:text-orange-500">{"Kevin Liu"}</span>
         </h1>
@@ -106,25 +105,25 @@ const Navbar = (props: {
           </button> */}
 
           <button
-            className="h-full border-l border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className="h-full border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
             onClick={() => props.patternBG()}
           >
             <div className="h-8 w-8">{patternSelector()}</div>
           </button>
 
           <button
-            className="h-full border-l border-gray-600 px-2 font-azeret text-[2rem] font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className="h-full border-l-[1.5px] border-gray-600 px-2 font-azeret text-[2rem] font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
             onClick={() => props.fontInitializer()}
           >
             <div className="mb-4 h-8 w-8">F</div>
           </button>
           <button
-            className="h-full border-l border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className="h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
             onClick={() => props.menuHandler()}
           >
             <MenuIcon className="h-8 w-8" />
           </button>
-          <div className="relative flex h-full items-center justify-center border-l border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
+          <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
             {renderThemeChanger()}
           </div>
         </div>

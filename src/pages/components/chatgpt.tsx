@@ -22,13 +22,12 @@ delete configuration.baseOptions.headers["User-Agent"];
 const openai = new OpenAIApi(configuration);
 
 // type Roles = "user" | "assistant" | "system";
-export default function Chat() {
+export default function Chat(props) {
   const { data: session } = useSession();
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
   const [memory, setMemory] = useState(true);
   const [history, setHistory] = useState([] as string[][]);
-  const [display, setDisplay] = useState(true);
 
   //OpenAI integration
   // const [roles, setRoles] = useState<Roles>("user");
@@ -120,21 +119,21 @@ export default function Chat() {
   };
 
   const showChat = () => {
-    if (display) {
-      return "absolute bottom-4 right-4 flex w-72 flex-col";
+    if (props.translate) {
+      return "absolute bottom-4 right-4 flex w-72 flex-col translate-x-0 duration-150 z-20";
     } else {
-      return "absolute bottom-4 right-4 flex w-72 flex-col translate-x-[110%] duration-150";
+      return "absolute bottom-4 right-4 flex w-72 flex-col translate-x-[110%] duration-150 z-20";
     }
   };
 
   return (
     <div className="relative h-full w-full">
       <section className={showChat()}>
-        <div className="relative z-10 flex h-[100%] flex-col justify-between ">
-          <div className="h-[100%] rounded-t-2xl border border-gray-600 bg-gray-50 duration-150 dark:bg-gray-800  ">
-            <div className="border-b border-b-gray-600 p-4 duration-150 ">
+        <div className="relative z-10 flex h-[100%] flex-col justify-between overflow-hidden rounded-2xl border border-gray-600">
+          <div className="h-[100%]  bg-gray-300 bg-opacity-80 duration-150 dark:bg-gray-600 dark:bg-opacity-80  ">
+            <div className="border-b border-b-gray-600 bg-gray-50 p-4 duration-150 dark:bg-gray-800  ">
               <button
-                onClick={() => setDisplay(!display)}
+                onClick={() => props.setTranslate(!props.translate)}
                 className="absolute right-4 h-8 w-8 "
               >
                 <XIcon />
@@ -174,7 +173,7 @@ export default function Chat() {
                 {history.map((msg, i) => (
                   <div
                     key={i}
-                    className="mb-3 flex flex-col rounded-lg bg-white p-2 px-4 duration-150  dark:bg-gray-700 "
+                    className="mb-3 flex flex-col rounded-lg bg-white p-2 px-4 duration-150  dark:bg-gray-800 "
                   >
                     <div className="flex items-center">
                       {chatSelector(msg[0] || "")}
@@ -206,7 +205,7 @@ export default function Chat() {
             </div>
           </div>
 
-          <div className="rounded-b-2xl border border-gray-600 bg-gray-50 p-4 duration-150  dark:border-gray-600 dark:bg-gray-800">
+          <div className=" bg-gray-50 p-4 duration-150 dark:bg-gray-800">
             <form
               onSubmit={(e) => setSubmission(e)}
               className="flex items-center"

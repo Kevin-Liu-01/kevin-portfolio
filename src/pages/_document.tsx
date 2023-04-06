@@ -11,9 +11,9 @@ export default function Document() {
           name="description"
           content="Kevin Liu is a junior in High School with a passion for computer science!"
         />
-        <meta content="./favicon.ico" property="og:image" />
-        <link rel="icon" href="./favicon.ico" />
-        <link rel="apple-touch-icon" href="./favicon.ico" />
+        <meta content="/favicon.ico" property="og:image" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
         {/*
             Notice the use of %PUBLIC_URL% in the tags above.
             It will be replaced with the URL of the `public` folder during the build.
