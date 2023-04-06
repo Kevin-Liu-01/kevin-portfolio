@@ -10,15 +10,17 @@ import {
 } from "react";
 // import { api } from "~/utils/api";
 import {
-  UserCircleIcon,
+  VariableIcon,
   ServerIcon,
-  AnnotationIcon,
-  ArrowNarrowRightIcon,
-  ClockIcon,
+  TerminalIcon,
+  ChatIcon,
   TrashIcon,
-  XIcon,
+  MicrophoneIcon,
+  PaperClipIcon,
+  CogIcon,
   PhoneIcon,
   MailIcon,
+  BookmarkAltIcon,
 } from "@heroicons/react/solid";
 import { env } from "../env.mjs";
 import Navbar from "./components/navbar";
@@ -28,52 +30,66 @@ const projects = [
   {
     name: "Enkrateia",
     url: "https://enkrateia.vercel.app/",
-    description: "An application to access the GPT-4 API.",
+    description:
+      "An application that accesses the ChatGPT 3.5 and GPT-4 models using the OpenAI API",
     image: "/enkrateia.png",
+    icon: <TerminalIcon />,
   },
   {
     name: "HD Transcribe",
     url: "https://hd-transcribe.vercel.app",
     description:
-      "Accesses a speech model designed to understand patients with Huntington's Disease",
+      "Accesses a novel speech model designed to understand patients with Huntington's Disease",
     image: "/hd-transcribe.png",
+    icon: <MicrophoneIcon />,
   },
   {
     name: "OMMC",
     url: "https://www.ommcofficial.org",
-    description: "The official website of the Online Monmouth Math Competition",
+    description:
+      "The official website of the Online Monmouth Math Competition, an online math competition for students across the country.",
     image: "/ommc.png",
+    icon: <VariableIcon />,
   },
   {
     name: "OMMC Atlas",
     url: "https://ommc-atlas.vercel.app/",
-    description: "The fullstack database for all OMMC questions",
+    description:
+      "The fullstack database for all OMMC questions. Includes all Year 1 questions from 2020-2021.",
     image: "/ommc-atlas.png",
+    icon: <ServerIcon />,
   },
   {
     name: "RecyclAIble",
     url: "https://recyclaible.vercel.app/",
-    description: "Hackathon project to use computer vision for smart recycling",
+    description:
+      "Hackathon project to use computer vision for smart recycling. Won 1st in Hardware at PennApps XXIII!",
     image: "/recyclaible.png",
+    icon: <TrashIcon />,
   },
   {
     name: "PlantSTEM",
     url: "https://plant-stem.vercel.app/",
     description:
-      "A website to help students learn about subjects like Math and Physics",
+      "A website to help students learn about subjects like Math and Physics, as well as Chess!",
     image: "/plantstem.png",
+    icon: <BookmarkAltIcon />,
   },
   {
     name: "Tutorial",
     url: "https://tutorial-nu.vercel.app/",
-    description: "An app to help tutors and pupils connect with each other",
+    description:
+      "An app to help tutors and pupils connect with each other and create listings.",
     image: "/tutorial.png",
+    icon: <PaperClipIcon />,
   },
   {
     name: "Satellite Crafter",
     url: "https://satellite-crafter.vercel.app/",
-    description: "My first app! A game to create satellites from certain parts",
+    description:
+      "My first app! A game to create satellites from certain parts.",
     image: "/satellitecrafter.png",
+    icon: <CogIcon />,
   },
 ];
 
@@ -132,9 +148,9 @@ const Home: NextPage = () => {
         fontInitializer={fontInitializer}
       />
       <div className="max-h-[calc(100vh-3.6rem)] min-h-[calc(100vh-3.6rem)] overflow-hidden  bg-gradient-to-b from-gray-100 to-gray-200 duration-150 dark:from-gray-800 dark:to-gray-900 ">
-        <div className="relative z-10 grid h-[calc(100vh-3.6rem)] w-full grid-cols-9">
+        <div className="relative z-10 grid h-[calc(100vh-3.6rem)] w-full lg:grid-cols-9">
           <button
-            className="relative col-span-2 border-r-[1.5px]  border-gray-600 "
+            className="relative col-span-2 hidden  border-r-[1.5px] border-gray-600 lg:block"
             onClick={() => setImageState(!imageState)}
           >
             <Image
@@ -160,18 +176,50 @@ const Home: NextPage = () => {
               alt="Kevin"
             />
             <div className="absolute bottom-0 mx-auto h-full w-full font-semibold text-transparent duration-200 hover:text-black ">
-              Me at PennApps XXIII!
+              PennApps XXIII
             </div>
           </button>
           <div className="col-span-7">
             <div className={patternStyles()}></div>
-            <div className="relative z-10 flex w-full flex-col border-b-[1.5px] border-gray-600 bg-gradient-to-r px-4 text-gray-900  dark:from-gray-800 dark:to-gray-900 dark:text-white lg:flex-row">
-              <h1 className="mt-6  select-none text-2xl font-extrabold tracking-tight duration-75 lg:text-4xl 2xl:text-[5rem]">
-                <span className="">Hi there, </span>
-                <span className="text-orange-500">{"I'm Kevin."}</span>
+
+            <div className="relative z-10 flex w-full flex-row border-b-[1.5px] border-gray-600 bg-gradient-to-r text-gray-900  dark:from-gray-800 dark:to-gray-900 dark:text-white ">
+              <button
+                className="block max-w-[10rem] border-r-[1.5px] border-gray-600 sm:max-w-[5rem] lg:hidden"
+                onClick={() => setImageState(!imageState)}
+              >
+                <Image
+                  src="/images/kevin_sidebar2.jpg"
+                  height={980}
+                  width={980}
+                  className={
+                    imageState
+                      ? "z-5 absolute h-full w-auto translate-x-[-100%] object-cover duration-150"
+                      : "z-5 absolute h-full w-auto translate-x-0 object-cover duration-150"
+                  }
+                  alt="Kevin2"
+                />
+                <Image
+                  src="/images/kevin_sidebar.jpg"
+                  height={980}
+                  width={980}
+                  className={
+                    imageState
+                      ? "z-5  h-full w-auto translate-x-0 object-cover duration-150  "
+                      : "z-5  h-full w-auto translate-x-[-100%] object-cover duration-150"
+                  }
+                  alt="Kevin"
+                />
+              </button>
+              <h1 className=":text-[1.4rem] hidden select-none items-center px-0 font-extrabold tracking-tight duration-75 sm:flex sm:pl-4 md:text-[1.2rem] lg:text-[2.5rem] xl:text-[3.3rem] 2xl:text-[4.5rem]">
+                <span className="inline  pr-1 xl:pr-2">Hi there, </span>
+                <span className="text-orange-500">{" I'm Kevin."}</span>
               </h1>
-              <div className="relative z-10 mr-2 ml-2 grid grid-cols-1 items-center justify-center border-gray-600 py-4 px-0 sm:grid-cols-2 lg:ml-auto lg:border-l-[1.5px] lg:px-4 lg:pl-6">
-                <div className=" hidden flex-col dark:flex">
+              <div className="relative z-10 mr-2 ml-2 grid items-center justify-center border-gray-600 py-4 px-0 sm:border-l-[1.5px] sm:px-4 md:grid-cols-2 lg:ml-auto lg:pl-6">
+                <h1 className="inline-block select-none flex-wrap px-0 text-2xl font-extrabold tracking-tight duration-75 sm:hidden sm:px-4 lg:text-[2rem] xl:text-[3.5rem] 2xl:text-[4.5rem]">
+                  <span className="">Hi there, </span>
+                  <span className="text-orange-500">{"I'm Kevin."}</span>
+                </h1>
+                <div className=" hidden flex-col text-xs dark:flex sm:text-sm xl:text-lg">
                   <Link
                     href="https://www.linkedin.com/in/kevin-liu-2495b6205/"
                     className="duration-75 hover:text-orange-500 hover:underline dark:hover:text-orange-400"
@@ -180,7 +228,7 @@ const Home: NextPage = () => {
                       width={400}
                       height={400}
                       src="/images/linkedin.svg"
-                      className="svgfill mr-2 inline h-6 w-6 rounded-sm"
+                      className="svgfill mr-2 mb-1 inline h-6 w-6 rounded-sm"
                       alt="Linkedin"
                     />
                     Kevin Liu
@@ -199,7 +247,7 @@ const Home: NextPage = () => {
                     Kevin-Liu-01
                   </Link>
                 </div>
-                <div className="flex flex-col dark:hidden">
+                <div className="flex flex-col text-xs dark:hidden sm:text-sm xl:text-lg">
                   <Link
                     href="https://www.linkedin.com/in/kevin-liu-2495b6205/"
                     className="duration-75 hover:text-orange-500 hover:underline dark:hover:text-orange-400"
@@ -227,13 +275,14 @@ const Home: NextPage = () => {
                     Kevin-Liu-01
                   </Link>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-xs sm:text-sm xl:text-lg">
                   <Link
                     href="mailto:kk23907751@gmail.com"
                     className="duration-75 hover:text-orange-500 hover:underline dark:hover:text-orange-400"
                   >
-                    <MailIcon className="mr-1 inline h-6 w-6" />{" "}
-                    kk23907751@gmail.com
+                    <MailIcon className="mr-1 inline h-6 w-6 " />
+                    kk23907751
+                    <span className="">@gmail.com</span>
                   </Link>
                   <Link
                     href="/"
@@ -246,8 +295,8 @@ const Home: NextPage = () => {
               </div>
             </div>
             {/* <div className="mt-28 ml-2 text-3xl">I love making web apps </div> */}
-            <div className=" scrollbar max-h-auto relative max-h-[calc(100vh-9rem)] overflow-x-hidden overflow-y-scroll ">
-              <div className="w-full border-b-[1.5px] border-gray-600 bg-gray-100 bg-opacity-60 p-4 text-sm dark:bg-gray-900">
+            <div className=" scrollbar max-h-auto relative max-h-[calc(100vh-10rem)] overflow-x-hidden overflow-y-scroll ">
+              <div className="w-full border-b-[1.5px] border-gray-600 bg-gray-100 bg-opacity-60 p-4 text-xs dark:bg-gray-900 lg:text-sm xl:text-base">
                 {
                   "I'm a high school junior with a passion for science and technology! I love exploring the latest innovations in computer science, software engineering, and AI/ML modeling. I'm an expert at full-stack MERN software development with all the latest frontend and backend languages and technologies, including React.js, Next13, MongoDB, and Tailwind. I've also got some serious design chops, which means I can create UIs that not only look amazing, but are also easy to use. But that's not all! I've also got plenty of experience in research and development, both in scientific study and in software projects. I'm always excited to dive into something new and push the boundaries of what's possible with technology. There's nothing quite like the feeling of building something from scratch and seeing it come to life!"
                 }
@@ -263,16 +312,18 @@ const Home: NextPage = () => {
                     className="relative flex flex-col items-center justify-center rounded-xl bg-white p-1 shadow-md duration-150 hover:scale-[1.02] dark:bg-gray-600"
                   >
                     <div className="absolute top-0 right-0 z-10 rounded-full bg-white p-2  duration-150 dark:bg-gray-600">
-                      <ServerIcon className="h-6 w-6 text-gray-500 duration-150 dark:text-gray-300" />
+                      <div className="h-6 w-6 text-gray-500 duration-150 dark:text-gray-300">
+                        {project.icon}
+                      </div>
                     </div>
                     <Image
                       src={"/images" + project.image}
                       height={980}
                       width={980}
-                      className="h-full w-auto rounded-lg "
+                      className="h-full w-full rounded-lg object-cover"
                       alt={project.name}
                     />
-                    <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-gray-100 bg-opacity-80 text-center opacity-0 duration-150 hover:opacity-100 dark:bg-gray-600 dark:bg-opacity-70">
+                    <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-gray-100 bg-opacity-80 px-4 text-center opacity-0 duration-150 hover:opacity-100 dark:bg-gray-600 dark:bg-opacity-70">
                       {project.description}
                     </div>
                   </Link>

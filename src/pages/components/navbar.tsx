@@ -71,9 +71,18 @@ const Navbar = (props: {
   return (
     <nav className="border-b-[1.5px] border-gray-600 bg-gray-100 font-general text-gray-900 shadow-lg duration-75 dark:bg-gray-800 dark:text-gray-400">
       <div className="flex flex-row justify-center">
-        <h1 className="absolute top-0 left-0 mt-2 ml-2 hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white lg:inline lg:text-4xl 2xl:text-[3rem]">
-          <span className="dark:text-orange-500">{"Kevin Liu"}</span>
-        </h1>
+        <div className="flex flex-row items-center">
+          <Image
+            src="/images/triangle.png"
+            alt="logo"
+            className="mr-4 inline h-6 w-7 rotate-90 duration-150 hover:rotate-180"
+            height={400}
+            width={400}
+          />
+          <h1 className="relative hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white sm:inline lg:text-4xl 2xl:text-[3rem]">
+            <span className="dark:text-orange-500">{"Kevin Liu"}</span>
+          </h1>
+        </div>
         <div className="ml-auto flex ">
           <div className="hidden h-full items-center py-2 px-2 duration-75 dark:text-white lg:flex">
             <span className="text-xl">{session?.user?.name || "Guest"}</span>
