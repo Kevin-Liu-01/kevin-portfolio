@@ -92,7 +92,7 @@ const Navbar = (props: {
               <div className="absolute right-0 bottom-0 h-2 w-2 rounded-full border-[1.5px] border-gray-900 bg-green-500 duration-75 dark:border-white"></div>
             </div>
           </div>
-          {/* 
+
           <button
             className=" h-full border-l border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
             onClick={session ? () => void signOut() : () => void signIn()}
@@ -102,7 +102,7 @@ const Navbar = (props: {
             ) : (
               <LoginIcon className="h-8 w-8" />
             )}
-          </button> */}
+          </button>
 
           <button
             className="h-full border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10"

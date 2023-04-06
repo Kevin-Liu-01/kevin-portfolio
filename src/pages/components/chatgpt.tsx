@@ -22,7 +22,7 @@ delete configuration.baseOptions.headers["User-Agent"];
 const openai = new OpenAIApi(configuration);
 
 // type Roles = "user" | "assistant" | "system";
-export default function Chat(props) {
+export default function Chat(props: { setTranslate: any; translate: boolean }) {
   const { data: session } = useSession();
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
@@ -133,6 +133,7 @@ export default function Chat(props) {
           <div className="h-[100%]  bg-gray-300 bg-opacity-80 duration-150 dark:bg-gray-600 dark:bg-opacity-80  ">
             <div className="border-b border-b-gray-600 bg-gray-50 p-4 duration-150 dark:bg-gray-800  ">
               <button
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
                 onClick={() => props.setTranslate(!props.translate)}
                 className="absolute right-4 h-8 w-8 "
               >

@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
 
-        <title>{"Kevin Liu's Website"} </title>
+        <title>Kevin&apos;s Portfolio </title>
         <meta
           name="description"
           content="Kevin Liu is a junior in High School with a passion for computer science!"
