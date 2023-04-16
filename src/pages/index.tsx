@@ -24,6 +24,14 @@ import Chat from "./components/chatgpt";
 
 const projects = [
   {
+    name: "OMMC Portal",
+    url: "https://ommc-test-portal.vercel.app/",
+    description:
+      "The official test portal of the OMMC 2023 Year 3 competition.",
+    image: "/ommcportal.jpg",
+    icon: <TerminalIcon />,
+  },
+  {
     name: "Enkrateia",
     url: "https://enkrateia.vercel.app/",
     description:
@@ -325,7 +333,7 @@ const Home: NextPage = () => {
                       className="h-full w-full rounded-lg object-cover"
                       alt={project.name}
                     />
-                    <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-gray-100 bg-opacity-80 px-4 text-center opacity-0 duration-150 hover:opacity-100 dark:bg-gray-600 dark:bg-opacity-70">
+                    <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-gray-100 bg-opacity-80 px-4 text-center opacity-0 duration-150 hover:opacity-100 dark:bg-gray-600 dark:bg-opacity-90">
                       {project.description}
                     </div>
                   </Link>
