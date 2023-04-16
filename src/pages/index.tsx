@@ -17,8 +17,8 @@ import {
   PhoneIcon,
   MailIcon,
   BookmarkAltIcon,
+  CalculatorIcon,
 } from "@heroicons/react/solid";
-import { env } from "../env.mjs";
 import Navbar from "./components/navbar";
 import Chat from "./components/chatgpt";
 
@@ -29,7 +29,7 @@ const projects = [
     description:
       "The official test portal of the OMMC 2023 Year 3 competition.",
     image: "/ommcportal.jpg",
-    icon: <TerminalIcon />,
+    icon: <CalculatorIcon />,
   },
   {
     name: "Enkrateia",
