@@ -3,12 +3,7 @@ import { type NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import {
-  useState,
-  useEffect,
-  type SetStateAction,
-  type FormEvent,
-} from "react";
+import { useState } from "react";
 // import { api } from "~/utils/api";
 import {
   VariableIcon,
@@ -148,6 +143,12 @@ const Home: NextPage = () => {
         menuHandler={menuHandler}
         fontInitializer={fontInitializer}
       />
+      <button
+        className="absolute bottom-4 right-4 z-20 rounded-2xl bg-orange-400 p-2 text-white shadow-lg  duration-150 hover:bg-orange-500"
+        onClick={() => menuHandler()}
+      >
+        <ChatIcon className="h-12 w-12" />
+      </button>
       <div className="max-h-[calc(100vh-3.6rem)] min-h-[calc(100vh-3.6rem)] overflow-hidden  bg-gradient-to-b from-gray-100 to-gray-200 duration-150 dark:from-gray-800 dark:to-gray-900 ">
         <div className="relative z-10 grid h-[calc(100vh-3.6rem)] w-full lg:grid-cols-9">
           <button

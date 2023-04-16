@@ -11,7 +11,6 @@ import {
   LoginIcon,
   LogoutIcon,
   UserCircleIcon,
-  MenuIcon,
 } from "@heroicons/react/solid";
 
 const Navbar = (props: {
