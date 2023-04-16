@@ -130,7 +130,20 @@ const Navbar = (props: {
             className="h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
             onClick={() => props.menuHandler()}
           >
-            <MenuIcon className="h-8 w-8" />
+            <Image
+              src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+              className=" inline h-8 w-8 dark:hidden"
+              height={500}
+              width={500}
+              alt="ChatGPT"
+            />
+            <Image
+              src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+              className="svgfill-gray  hidden  h-8 w-8 dark:inline"
+              height={500}
+              width={500}
+              alt="ChatGPT"
+            />
           </button>
           <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
             {renderThemeChanger()}
