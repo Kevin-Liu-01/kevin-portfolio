@@ -51,7 +51,7 @@ const projects = [
   },
   {
     name: "Iron Triangle",
-    url: "https://adventuregpt.vercel.app/",
+    url: "https://iron-triangle.vercel.app/",
     description: "U.S. History II Final; Analyzes Military Industrial Complex.",
     image: "/irontriangle.png",
     icon: <ScaleIcon />,
