@@ -74,7 +74,7 @@ const Navbar = (props: {
           <Image
             src="/images/triangle.png"
             alt="logo"
-            className="mr-4 inline h-6 w-7 rotate-90 duration-150 hover:rotate-180"
+            className="mr-4 inline h-6 w-7 rotate-90 duration-150 hover:rotate-[180]"
             height={400}
             width={400}
           />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 // import { api } from "~/utils/api";
 import {
+  PuzzleIcon,
   VariableIcon,
   ServerIcon,
   TerminalIcon,
@@ -12,16 +13,64 @@ import {
   TrashIcon,
   MicrophoneIcon,
   PaperClipIcon,
-  CogIcon,
   PhoneIcon,
   MailIcon,
   BookmarkAltIcon,
   CalculatorIcon,
+  DocumentSearchIcon,
+  SparklesIcon,
+  ScaleIcon,
+  IdentificationIcon,
+  LibraryIcon,
+  LightBulbIcon,
 } from "@heroicons/react/solid";
 import Navbar from "./components/navbar";
 import Chat from "./components/chatgpt";
 
 const projects = [
+  {
+    name: "LetMeCook",
+    url: "https://letmecook.vercel.app/",
+    description: "Scans your refrigerator to generate recipes.",
+    image: "/letmecook.png",
+    icon: <LightBulbIcon />,
+  },
+  {
+    name: "Balladeer",
+    url: "https://balladeer.vercel.app/",
+    description: "Generates full study guides for literary works.",
+    image: "/balladeer.jpg",
+    icon: <LibraryIcon />,
+  },
+  {
+    name: "CompassUSA",
+    url: "https://compass-usa.vercel.app/",
+    description: "A tool to help immigrants find support and resources.",
+    image: "/compassusa.jpg",
+    icon: <IdentificationIcon />,
+  },
+  {
+    name: "Iron Triangle",
+    url: "https://adventuregpt.vercel.app/",
+    description: "U.S. History II Final; Analyzes Military Industrial Complex.",
+    image: "/irontriangle.png",
+    icon: <ScaleIcon />,
+  },
+  {
+    name: "AdventureGPT",
+    url: "https://adventuregpt.vercel.app/",
+    description:
+      "Generates unique, exciting stories based on a user-inputted prompt.",
+    image: "/adventuregpt.png",
+    icon: <SparklesIcon />,
+  },
+  {
+    name: "EditorGPT",
+    url: "https://editorgpt.vercel.app/",
+    description: "A code editor that allows ChatGPT to review your code.",
+    image: "/editorgpt.png",
+    icon: <DocumentSearchIcon />,
+  },
   {
     name: "OMMC Portal",
     url: "https://ommc-test-portal.vercel.app/",
@@ -92,7 +141,7 @@ const projects = [
     description:
       "My first app! A game to create satellites from certain parts.",
     image: "/satellitecrafter.png",
-    icon: <CogIcon />,
+    icon: <PuzzleIcon />,
   },
 ];
 
@@ -151,7 +200,7 @@ const Home: NextPage = () => {
           fontInitializer={fontInitializer}
         />
         <button
-          className="absolute bottom-4 right-4 z-20 rounded-2xl bg-orange-400 p-2 text-white shadow-lg  duration-150 hover:bg-orange-500"
+          className="absolute bottom-4 right-4 z-20 rounded-2xl bg-gptLight p-2 text-white shadow-lg  duration-150 hover:bg-orange-500"
           onClick={() => menuHandler()}
         >
           <ChatIcon className="h-12 w-12" />
@@ -310,7 +359,7 @@ const Home: NextPage = () => {
               <div className=" scrollbar max-h-auto relative max-h-[calc(100vh-16rem)] overflow-x-hidden overflow-y-scroll sm:max-h-[calc(100vh-10rem)] ">
                 <div className="w-full border-b-[1.5px] border-gray-600 bg-gray-100 bg-opacity-60 p-4 text-xs dark:bg-gray-900 lg:text-sm xl:text-base">
                   {
-                    "I'm a high school junior with a passion for science and technology! I love exploring the latest innovations in computer science, software engineering, and AI/ML modeling. I'm an expert at full-stack MERN software development with all the latest frontend and backend languages and technologies, including React.js, Next13, MongoDB, and Tailwind. I've also got some serious design chops, which means I can create UIs that not only look amazing, but are also easy to use. But that's not all! I've also got plenty of experience in research and development, both in scientific study and in software projects. I'm always excited to dive into something new and push the boundaries of what's possible with technology. There's nothing quite like the feeling of building something from scratch and seeing it come to life!"
+                    "I'm a high school senior with a passion for science and technology! I love exploring the latest innovations in computer science, software engineering, and AI/ML modeling. I'm an expert at full-stack MERN software development with all the latest frontend and backend languages and technologies, including React.js, Next13, MongoDB, and Tailwind. I've also got some serious design chops, which means I can create UIs that not only look amazing, but are also easy to use. But that's not all! I've also got plenty of experience in research and development, both in scientific study and in software projects. I'm always excited to dive into something new and push the boundaries of what's possible with technology. There's nothing quite like the feeling of building something from scratch and seeing it come to life!"
                   }
                 </div>
                 <p className="px-4 pb-4 pt-2 font-semibold ">
@@ -321,10 +370,10 @@ const Home: NextPage = () => {
                     <Link
                       href={project.url}
                       key={project.name}
-                      className="relative flex flex-col items-center justify-center rounded-xl bg-white p-1 shadow-md duration-150 hover:scale-[1.02] dark:bg-gray-600"
+                      className="relative flex flex-col items-center justify-center overflow-hidden rounded-xl bg-gptLight p-0.5 shadow-md duration-150 hover:scale-[1.02] dark:bg-gptDark"
                     >
-                      <div className="absolute top-0 right-0 z-10 rounded-full bg-white p-2  duration-150 dark:bg-gray-600">
-                        <div className="h-6 w-6 text-gray-500 duration-150 dark:text-gray-300">
+                      <div className="absolute top-0 right-0 z-10 rounded-bl-full  bg-gptLight p-2 pl-4 pb-4  duration-150 dark:bg-gptDark">
+                        <div className="h-6 w-6 text-gray-900 duration-150 dark:text-gray-50">
                           {project.icon}
                         </div>
                       </div>
@@ -332,10 +381,10 @@ const Home: NextPage = () => {
                         src={"/images" + project.image}
                         height={980}
                         width={980}
-                        className="h-full w-full rounded-lg object-cover"
+                        className="h-full w-full rounded-[0.65rem] object-cover"
                         alt={project.name}
                       />
-                      <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-gray-100 bg-opacity-80 px-4 text-center opacity-0 duration-150 hover:opacity-100 dark:bg-gray-600 dark:bg-opacity-90">
+                      <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-gpt bg-opacity-90 px-4 text-center opacity-0 duration-150 hover:opacity-100 dark:bg-gptDark">
                         {project.description}
                       </div>
                     </Link>

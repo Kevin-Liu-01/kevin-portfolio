@@ -2,7 +2,12 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState, useEffect, type FormEvent } from "react";
 // import { api } from "~/utils/api";
-import { UserCircleIcon, TrashIcon } from "@heroicons/react/solid";
+import {
+  UserCircleIcon,
+  TrashIcon,
+  StatusOnlineIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/solid";
 import { env } from "../../env.mjs";
 import Typewriter from "typewriter-effect";
 import { Configuration, OpenAIApi } from "openai";
@@ -21,6 +26,7 @@ export default function Chat(props: { setTranslate: any; translate: boolean }) {
   const [query, setQuery] = useState("");
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([] as string[][]);
+  const [loading, setLoading] = useState(false);
 
   //OpenAI integration
   // const [roles, setRoles] = useState<Roles>("user");
@@ -30,6 +36,7 @@ export default function Chat(props: { setTranslate: any; translate: boolean }) {
   useEffect(() => {
     async function fetchData() {
       if (submit && message) {
+        setLoading(true);
         const context =
           history.length >= 2
             ? // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -53,6 +60,7 @@ export default function Chat(props: { setTranslate: any; translate: boolean }) {
           frequency_penalty: 0,
           presence_penalty: 0,
         });
+        setLoading(false);
 
         setHistory(
           // Replace the state
@@ -199,30 +207,40 @@ export default function Chat(props: { setTranslate: any; translate: boolean }) {
         </div>
 
         <div className=" border-t border-gray-600 bg-gray-50 p-4 duration-150 dark:bg-gray-800">
-          <form
-            onSubmit={(e) => setSubmission(e)}
-            className="flex items-center"
-          >
-            <input
-              type="text"
-              placeholder="Type a message..."
-              className="w-full rounded-xl border  border-gray-300 bg-gray-100 py-2 px-4 text-gray-900 duration-150 focus:outline-none  focus:ring-2 focus:ring-gpt dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200"
-              value={query}
-              onChange={(e) => handleQuery(e.target.value)}
-            />
-            <button
-              type="submit"
-              className="ml-2 flex items-center rounded-xl bg-gptLight py-1 px-2 text-white duration-150 ease-in-out hover:bg-gpt dark:bg-gpt dark:hover:bg-gptDark "
-            >
-              <Image
-                src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                className=" inline h-8 w-8 "
-                height={500}
-                width={500}
-                alt="ChatGPT"
+          {loading ? (
+            <div className="flex rounded-lg border  border-gray-400 dark:border-gray-600">
+              <input
+                type="text"
+                placeholder="Type a message..."
+                className="w-full rounded-l-lg bg-gray-100 py-2 px-4 text-gray-900 opacity-50 duration-150 focus:outline-none focus:ring-1 focus:ring-gptLight dark:bg-gray-800 dark:text-gray-200"
+                value={query}
+                disabled
+                onChange={(e) => handleQuery(e.target.value)}
               />
-            </button>
-          </form>
+              <button className=" flex items-center rounded-r-lg bg-gpt bg-opacity-70 px-[0.63rem] py-[0.6rem] text-white duration-150 ease-in-out ">
+                <StatusOnlineIcon className="inline h-6 w-6 animate-spin" />
+              </button>
+            </div>
+          ) : (
+            <form
+              onSubmit={(e) => setSubmission(e)}
+              className="flex rounded-lg border  border-gray-400 dark:border-gray-600"
+            >
+              <input
+                type="text"
+                placeholder="Type a message..."
+                className="w-full rounded-l-lg bg-gray-100 py-2 px-4 text-gray-900 duration-150 focus:outline-none focus:ring-1 focus:ring-gptLight dark:bg-gray-800 dark:text-gray-200"
+                value={query}
+                onChange={(e) => handleQuery(e.target.value)}
+              />
+              <button
+                type="submit"
+                className=" flex items-center rounded-r-lg bg-gpt pt-2 pb-3 pl-3 pr-2 text-white duration-150 ease-in-out hover:bg-gptDark "
+              >
+                <PaperAirplaneIcon className="inline h-6 w-6 rotate-45" />
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </section>
