@@ -336,21 +336,27 @@ const Home: NextPage = () => {
                       Kevin-Liu-01
                     </Link>
                   </div>
-                  <div className="flex flex-col text-xs sm:text-sm xl:text-lg">
+                  <div className="flex flex-col gap-1 text-xs sm:text-sm xl:text-lg">
                     <Link
-                      href="mailto:kk23907751@gmail.com"
+                      href="mailto:k.bowen.liu@gmail.com"
                       className="duration-75 hover:text-orange-500 hover:underline dark:hover:text-orange-400"
                     >
                       <MailIcon className="mr-1 inline h-6 w-6 " />
-                      kk23907751
+                      k.bowen.liu
                       <span className="">@gmail.com</span>
                     </Link>
                     <Link
-                      href="/"
+                      href="https://devpost.com/Kevin-Liu-01"
                       className="duration-75 hover:text-orange-500 hover:underline dark:hover:text-orange-400"
                     >
-                      <PhoneIcon className="mr-1 inline h-6 w-6" /> +1
-                      732-810-5793
+                      <Image
+                        width={400}
+                        height={400}
+                        src="/images/devpost.svg"
+                        className="mr-2 inline h-6 w-6 dark:invert"
+                        alt="Devpost"
+                      />
+                      Kevin-Liu-01
                     </Link>
                   </div>
                 </div>
