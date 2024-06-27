@@ -78,8 +78,13 @@ const Navbar = (props: {
             height={400}
             width={400}
           />
-          <h1 className="relative hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white sm:inline lg:text-4xl 2xl:text-[3rem]">
-            <span className="dark:text-orange-500">{"Kevin Liu"}</span>
+          <h1 className="relative  select-none text-5xl font-extrabold tracking-tight duration-75 dark:text-white sm:text-2xl lg:text-4xl 2xl:text-[3rem]">
+            <span className="hidden dark:text-orange-500 sm:inline">
+              {"Kevin Liu"}
+            </span>
+            <span className="inline dark:text-orange-500 sm:hidden">
+              {"KEV"}
+            </span>
           </h1>
         </div>
         <div className="ml-auto flex ">
@@ -102,7 +107,7 @@ const Navbar = (props: {
           </div>
 
           <button
-            className=" h-full border-l border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className=" h-full border-l border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3"
             onClick={session ? () => void signOut() : () => void signIn()}
           >
             {session ? (
@@ -113,20 +118,20 @@ const Navbar = (props: {
           </button>
 
           <button
-            className="h-full border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className="h-full border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3"
             onClick={() => props.patternBG()}
           >
             <div className="h-8 w-8">{patternSelector()}</div>
           </button>
 
           <button
-            className="h-full border-l-[1.5px] border-gray-600 px-2 font-azeret text-[2rem] font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className="h-full border-l-[1.5px] border-gray-600 px-2 font-azeret text-[2rem] font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3"
             onClick={() => props.fontInitializer()}
           >
             <div className="mb-4 h-8 w-8">F</div>
           </button>
           <button
-            className="h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className="hidden h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:inline sm:px-3"
             onClick={() => props.menuHandler()}
           >
             <Image
@@ -144,7 +149,7 @@ const Navbar = (props: {
               alt="ChatGPT"
             />
           </button>
-          <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
+          <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3">
             {renderThemeChanger()}
           </div>
         </div>

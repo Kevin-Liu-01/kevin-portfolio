@@ -23,11 +23,20 @@ import {
   IdentificationIcon,
   LibraryIcon,
   LightBulbIcon,
+  EyeIcon,
 } from "@heroicons/react/solid";
 import Navbar from "./components/navbar";
 import Chat from "./components/chatgpt";
 
 const projects = [
+  {
+    name: "SnellTech",
+    url: "https://snelltech.vercel.app/",
+    description:
+      "Low-cost digital visual acuity exam using the Snellen Eye Chart.",
+    image: "/snelltech.png",
+    icon: <EyeIcon />,
+  },
   {
     name: "LetMeCook",
     url: "https://letmecook.vercel.app/",
@@ -71,12 +80,19 @@ const projects = [
     image: "/editorgpt.png",
     icon: <DocumentSearchIcon />,
   },
+
   {
     name: "OMMC Portal",
     url: "https://ommc-test-portal.vercel.app/",
-    description:
-      "The official test portal of the OMMC 2023 Year 3 competition.",
+    description: "The official test portal of the OMMC competition.",
     image: "/ommcportal.jpg",
+    icon: <CalculatorIcon />,
+  },
+  {
+    name: "OMMC Sample Portal",
+    url: "https://ommc-sample-portal.vercel.app/",
+    description: "The official sample test portal of OMMC.",
+    image: "/ommcsampleportal.png",
     icon: <CalculatorIcon />,
   },
   {
@@ -209,11 +225,11 @@ const Home: NextPage = () => {
         <div className="min-h-[calc(100vh-3.6rem)] overflow-hidden bg-gradient-to-b  from-gray-100 to-gray-200 duration-150 dark:from-gray-800 dark:to-gray-900 sm:max-h-[calc(100vh-3.6rem)] ">
           <div className="relative z-10 grid w-full sm:h-[calc(100vh-3.6rem)] lg:grid-cols-9">
             <button
-              className="relative col-span-2 hidden  border-r-[1.5px] border-gray-600 lg:block"
+              className="relative col-span-2 hidden border-r-[1.5px] border-gray-600 bg-gray-900 lg:block"
               onClick={() => setImageState(!imageState)}
             >
               <Image
-                src="/images/kevin_sidebar2.jpg"
+                src="/images/kevin_sidebar2.png"
                 height={980}
                 width={980}
                 className={
@@ -224,7 +240,7 @@ const Home: NextPage = () => {
                 alt="Kevin2"
               />
               <Image
-                src="/images/kevin_sidebar.jpg"
+                src="/images/kevin_sidebar.png"
                 height={980}
                 width={980}
                 className={
@@ -234,8 +250,8 @@ const Home: NextPage = () => {
                 }
                 alt="Kevin"
               />
-              <div className="absolute bottom-0 mx-auto h-full w-full font-semibold text-transparent duration-200 hover:text-black ">
-                PennApps XXIII
+              <div className="absolute bottom-0 mx-auto h-full w-full font-medium text-transparent duration-200 hover:text-orange-400 ">
+                Go Tigers!
               </div>
             </button>
             <div className="col-span-7">
@@ -243,11 +259,11 @@ const Home: NextPage = () => {
 
               <div className="relative z-10 flex w-full flex-row border-b-[1.5px] border-gray-600 bg-gradient-to-r text-gray-900  dark:from-gray-800 dark:to-gray-900 dark:text-white ">
                 <button
-                  className="block max-w-[10rem] border-r-[1.5px] border-gray-600 sm:max-w-[5rem] lg:hidden"
+                  className="block max-w-[10rem] sm:max-w-[5rem] lg:hidden"
                   onClick={() => setImageState(!imageState)}
                 >
                   <Image
-                    src="/images/kevin_sidebar2.jpg"
+                    src="/images/kevin_sidebar2.png"
                     height={980}
                     width={980}
                     className={
@@ -258,7 +274,7 @@ const Home: NextPage = () => {
                     alt="Kevin2"
                   />
                   <Image
-                    src="/images/kevin_sidebar.jpg"
+                    src="/images/kevin_sidebar.png"
                     height={980}
                     width={980}
                     className={
