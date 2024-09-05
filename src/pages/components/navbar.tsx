@@ -82,7 +82,7 @@ const Navbar = (props: {
             <span className="hidden dark:text-orange-500 sm:inline">
               {"Kevin Liu"}
               <span className="mt-full absolute hidden text-lg text-orange-500 dark:text-white sm:inline">
-                '28
+                {"'28"}
               </span>
             </span>
             <span className="inline dark:text-orange-500 sm:hidden">
