@@ -78,9 +78,12 @@ const Navbar = (props: {
             height={400}
             width={400}
           />
-          <h1 className="relative  select-none text-5xl font-extrabold tracking-tight duration-75 dark:text-white sm:text-2xl lg:text-4xl 2xl:text-[3rem]">
+          <h1 className="relative select-none text-5xl font-extrabold tracking-tight duration-75 dark:text-white sm:text-2xl lg:text-4xl 2xl:text-[3rem]">
             <span className="hidden dark:text-orange-500 sm:inline">
               {"Kevin Liu"}
+              <span className="mt-full absolute hidden text-lg text-orange-500 dark:text-white sm:inline">
+                '28
+              </span>
             </span>
             <span className="inline dark:text-orange-500 sm:hidden">
               {"KEV"}

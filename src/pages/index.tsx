@@ -13,7 +13,7 @@ import {
   TrashIcon,
   MicrophoneIcon,
   PaperClipIcon,
-  PhoneIcon,
+  ChipIcon,
   MailIcon,
   BookmarkAltIcon,
   CalculatorIcon,
@@ -24,6 +24,7 @@ import {
   LibraryIcon,
   LightBulbIcon,
   EyeIcon,
+  CursorClickIcon,
 } from "@heroicons/react/solid";
 import Navbar from "./components/navbar";
 import Chat from "./components/chatgpt";
@@ -57,6 +58,14 @@ const projects = [
     description: "A tool to help immigrants find support and resources.",
     image: "/compassusa.jpg",
     icon: <IdentificationIcon />,
+  },
+  {
+    name: "ApneaAlert",
+    url: "https://apnea-alert-git-main-kevin-liu-01.vercel.app/",
+    description:
+      "Apnea Alert is an affordable wearable sensor to help you sleep soundly.",
+    image: "/apnea-alert.png",
+    icon: <ChipIcon />,
   },
   {
     name: "Iron Triangle",
@@ -381,11 +390,12 @@ const Home: NextPage = () => {
               <div className=" scrollbar max-h-auto relative max-h-[calc(100vh-16rem)] overflow-x-hidden overflow-y-scroll sm:max-h-[calc(100vh-10rem)] ">
                 <div className="w-full border-b-[1.5px] border-gray-600 bg-gray-100 bg-opacity-60 p-4 text-xs dark:bg-gray-900 lg:text-sm xl:text-base">
                   {
-                    "I'm a high school senior with a passion for science and technology! I love exploring the latest innovations in computer science, software engineering, and AI/ML modeling. I'm an expert at full-stack MERN software development with all the latest frontend and backend languages and technologies, including React.js, Next13, MongoDB, and Tailwind. I've also got some serious design chops, which means I can create UIs that not only look amazing, but are also easy to use. But that's not all! I've also got plenty of experience in research and development, both in scientific study and in software projects. I'm always excited to dive into something new and push the boundaries of what's possible with technology. There's nothing quite like the feeling of building something from scratch and seeing it come to life!"
+                    "I'm a freshman at Princeton University with a passion for science and technology! I love exploring the latest innovations in computer science, software engineering, and AI/ML modeling. I'm an expert at full-stack MERN software development with all the latest frontend and backend languages and technologies, including React.js, Next13, MongoDB, and Tailwind. I've also got some serious design chops, which means I can create UIs that not only look amazing, but are also easy to use. But that's not all! I've also got plenty of experience in research and development, both in scientific study and in software projects. I'm always excited to dive into something new and push the boundaries of what's possible with technology. There's nothing quite like the feeling of building something from scratch and seeing it come to life!"
                   }
                 </div>
-                <p className="px-4 pb-4 pt-2 font-semibold ">
-                  Here are some of my favorite projects:
+                <p className="flex px-4 pb-4 pt-2 font-semibold ">
+                  <CursorClickIcon className="mr-1 inline h-6 w-6 " /> Hover
+                  over to view some of my favorite projects:
                 </p>
                 <div className="grid grid-cols-1 gap-4 px-4 pb-4 sm:grid-cols-2 lg:grid-cols-3 ">
                   {projects.map((project) => (
@@ -406,7 +416,10 @@ const Home: NextPage = () => {
                         className="h-full w-full rounded-[0.65rem] object-cover"
                         alt={project.name}
                       />
-                      <div className="absolute flex h-full w-full items-center justify-center rounded-xl bg-gpt bg-opacity-90 px-4 text-center opacity-0 duration-150 hover:opacity-100 dark:bg-gptDark">
+                      <div className="absolute flex h-full w-full flex-col items-center justify-center rounded-xl bg-gpt bg-opacity-90 px-4 text-center font-semibold opacity-0 duration-150 hover:opacity-100 dark:bg-gptDark">
+                        <span className="mb-2 rounded-md border border-black bg-gpt px-2 font-bold dark:border-white dark:bg-gptDark ">
+                          {project.name}
+                        </span>
                         {project.description}
                       </div>
                     </Link>
