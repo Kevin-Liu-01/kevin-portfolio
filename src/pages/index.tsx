@@ -25,11 +25,20 @@ import {
   LightBulbIcon,
   EyeIcon,
   CursorClickIcon,
+  CreditCardIcon,
 } from "@heroicons/react/solid";
 import Navbar from "./components/navbar";
 import Chat from "./components/chatgpt";
 
 const projects = [
+  {
+    name: "PawPointClicker",
+    url: "https://pawpointclicker.vercel.app/",
+    description:
+      "Cookie Clicker inspired game where you collect Princeton's Paw Points.",
+    image: "/pawpointclicker.png",
+    icon: <CreditCardIcon />,
+  },
   {
     name: "SnellTech",
     url: "https://snelltech.vercel.app/",
@@ -41,7 +50,7 @@ const projects = [
   {
     name: "LetMeCook",
     url: "https://letmecook.vercel.app/",
-    description: "Scans your refrigerator to generate recipes.",
+    description: "Scans your refrigerator to generate recipes using ChatGPT.",
     image: "/letmecook.png",
     icon: <LightBulbIcon />,
   },
