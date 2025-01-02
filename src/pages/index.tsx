@@ -26,11 +26,21 @@ import {
   EyeIcon,
   CursorClickIcon,
   CreditCardIcon,
+  CodeIcon,
+  ArchiveIcon,
 } from "@heroicons/react/solid";
 import Navbar from "./components/navbar";
 import Chat from "./components/chatgpt";
 
 const projects = [
+  {
+    name: "Lootbox Simulator",
+    url: "https://lootboxsimulator.vercel.app/",
+    description:
+      "Simulator-style game where users can try opening different kinds of lootboxes.",
+    image: "/lootboxsimulator.png",
+    icon: <ArchiveIcon />,
+  },
   {
     name: "PawPointClicker",
     url: "https://pawpointclicker.vercel.app/",
@@ -38,6 +48,14 @@ const projects = [
       "Cookie Clicker inspired game where you collect Princeton's Paw Points.",
     image: "/pawpointclicker.png",
     icon: <CreditCardIcon />,
+  },
+  {
+    name: "HackPrinceton",
+    url: "https://www.hackprinceton.com/",
+    description:
+      "Main website/landing page for HackPrinceton, Princeton's premier hackathon.",
+    image: "/hackprinceton.png",
+    icon: <CodeIcon />,
   },
   {
     name: "SnellTech",
