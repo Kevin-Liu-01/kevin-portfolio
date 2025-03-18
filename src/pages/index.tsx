@@ -28,11 +28,19 @@ import {
   CreditCardIcon,
   CodeIcon,
   ArchiveIcon,
+  ArrowsExpandIcon,
 } from "@heroicons/react/solid";
 import Navbar from "./components/navbar";
 import Chat from "./components/chatgpt";
 
 const projects = [
+  {
+    name: "Splitway",
+    url: "https://splitway.vercel.app/",
+    description: "Track expenses and split them with friends.",
+    image: "/splitway.png",
+    icon: <ArrowsExpandIcon />,
+  },
   {
     name: "Lootbox Simulator",
     url: "https://lootboxsimulator.vercel.app/",
