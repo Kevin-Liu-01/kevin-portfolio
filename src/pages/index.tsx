@@ -58,11 +58,19 @@ const projects = [
     icon: <CreditCardIcon />,
   },
   {
-    name: "HackPrinceton",
-    url: "https://www.hackprinceton.com/",
+    name: "HackPrinceton 2025S",
+    url: "https://hack-princeton-spring-2025-demo.vercel.app/",
     description:
-      "Main website/landing page for HackPrinceton, Princeton's premier hackathon.",
-    image: "/hackprinceton.png",
+      "Main website/landing page for HackPrinceton Spring 2025, Princeton's premier hackathon.",
+    image: "/hackprinceton25s.png",
+    icon: <CodeIcon />,
+  },
+  {
+    name: "HackPrinceton 2024F",
+    url: "https://hack-princeton-fall-2024-demo.vercel.app/",
+    description:
+      "Main website/landing page for HackPrinceton Fall 2024, Princeton's premier hackathon.",
+    image: "/hackprinceton24f.png",
     icon: <CodeIcon />,
   },
   {
