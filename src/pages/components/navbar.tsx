@@ -5,13 +5,16 @@ import { useState, useEffect } from "react";
 import {
   SunIcon,
   MoonIcon,
-  DotsHorizontalIcon,
   PlusIcon,
   ViewGridIcon,
+  DotsHorizontalIcon,
   LoginIcon,
   LogoutIcon,
   UserCircleIcon,
+  MenuIcon,
+  XIcon,
 } from "@heroicons/react/solid";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Navbar = (props: {
   pattern: string;
@@ -22,142 +25,217 @@ const Navbar = (props: {
   const { data: session } = useSession();
   const { systemTheme, theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   const renderThemeChanger = () => {
     if (!mounted) return null;
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const currentTheme = theme === "system" ? systemTheme : theme;
-
-    if (currentTheme === "dark") {
-      return (
-        <button
-          className="flex h-full w-full items-center justify-center text-gray-300 hover:text-purple-500"
-          role="button"
-          onClick={() => setTheme("light")}
-        >
-          {/* <div className="rings-halo absolute z-50 h-full w-full bg-contain bg-center bg-no-repeat opacity-70"></div> */}
-          <MoonIcon className="h-8 w-8" />
-        </button>
-      );
-    } else {
-      return (
-        <button
-          className="flex h-full w-full items-center justify-center  text-black hover:text-orange-400"
-          role="button"
-          onClick={() => setTheme("dark")}
-        >
-          {/* <div className="rings-halo absolute z-50 h-full w-full bg-contain bg-center bg-no-repeat opacity-70"></div> */}
-          <SunIcon className="h-8 w-8" />
-        </button>
-      );
-    }
+    return (
+      <button
+        onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
+        className="rounded-xl border-2 border-white/10 p-2 text-gray-600 transition hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+      >
+        {currentTheme === "dark" ? (
+          <MoonIcon className="h-5 w-5" />
+        ) : (
+          <SunIcon className="h-5 w-5" />
+        )}
+      </button>
+    );
   };
 
   const patternSelector = () => {
-    if (props.pattern == "cross") {
-      return <PlusIcon className="h-full w-full" />;
-    } else if (props.pattern == "dots") {
-      return <DotsHorizontalIcon className="h-full w-full" />;
-    } else {
-      return <ViewGridIcon className="h-full w-full" />;
+    switch (props.pattern) {
+      case "cross":
+        return <PlusIcon className="h-5 w-5" />;
+      case "dots":
+        return <DotsHorizontalIcon className="h-5 w-5" />;
+      default:
+        return <ViewGridIcon className="h-5 w-5" />;
     }
   };
+
   return (
-    <nav className="border-b-[1.5px] border-gray-600 bg-gray-100 font-general text-gray-900 shadow-lg duration-75 dark:bg-gray-800 dark:text-gray-400">
-      <div className="flex flex-row justify-center">
-        <div className="flex flex-row items-center">
+    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
+      <div className="mx-auto flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        {/* Logo + Name */}
+        <div className="flex items-center gap-3">
           <Image
             src="/images/triangle.png"
             alt="logo"
-            className="mr-4 inline h-6 w-7 rotate-90 duration-150 hover:rotate-[180]"
-            height={400}
-            width={400}
+            height={28}
+            width={28}
+            className="rotate-90 transition hover:rotate-180"
           />
-          <h1 className="relative select-none text-5xl font-extrabold tracking-tight duration-75 dark:text-white sm:text-2xl lg:text-4xl 2xl:text-[3rem]">
-            <span className="hidden dark:text-orange-500 sm:inline">
-              {"Kevin Liu"}
-              <span className="mt-full absolute hidden text-lg text-orange-500 dark:text-white sm:inline">
-                {"'28"}
-              </span>
-            </span>
-            <span className="inline dark:text-orange-500 sm:hidden">
-              {"KEV"}
+          <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Kevin Liu{" "}
+            <span className="ml-1 text-sm font-medium text-orange-500">
+              {"'28"}
             </span>
           </h1>
         </div>
-        <div className="ml-auto flex ">
-          <div className="hidden h-full items-center py-2 px-2 duration-75 dark:text-white lg:flex">
-            <span className="text-xl">{session?.user?.name || "Guest"}</span>
-            <div className="relative my-auto ml-2 inline h-10 w-10 rounded-full border-[1.5px] border-gray-900 duration-75 dark:border-white">
-              {session?.user.image ? (
+
+        {/* Desktop Groups */}
+        <div className="hidden items-center gap-3 sm:flex">
+          {/* User group */}
+          <div className="flex items-center gap-2 rounded-2xl border border-gray-200 bg-white/60 px-1 py-1 shadow-sm dark:border-gray-700 dark:bg-gray-800/60">
+            <div className="relative h-8 w-8 overflow-hidden rounded-full border border-gray-300 dark:border-gray-600">
+              {session?.user?.image ? (
                 <Image
-                  src={session?.user.image}
-                  alt="Profile Picture"
-                  className="relative h-full w-full rounded-full"
-                  height={500}
-                  width={500}
+                  src={session.user.image}
+                  alt="Profile"
+                  fill
+                  className="object-cover"
                 />
               ) : (
-                <UserCircleIcon className="relative h-full w-full rounded-full duration-75 dark:text-white" />
+                <UserCircleIcon className="h-full w-full text-gray-400 dark:text-gray-500" />
               )}
-              <div className="absolute right-0 bottom-0 h-2 w-2 rounded-full border-[1.5px] border-gray-900 bg-green-500 duration-75 dark:border-white"></div>
             </div>
+            <button
+              onClick={session ? () => void signOut() : () => void signIn()}
+              className="rounded-xl border-2 border-white/10 p-2 text-gray-600 transition hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              {session ? (
+                <LogoutIcon className="h-5 w-5" />
+              ) : (
+                <LoginIcon className="h-5 w-5" />
+              )}
+            </button>
           </div>
 
-          <button
-            className=" h-full border-l border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3"
-            onClick={session ? () => void signOut() : () => void signIn()}
-          >
-            {session ? (
-              <LogoutIcon className="h-8 w-8" />
-            ) : (
-              <LoginIcon className="h-8 w-8" />
-            )}
-          </button>
+          {/* Customization group */}
+          <div className="flex items-center gap-2 rounded-2xl border border-gray-200 bg-white/60 px-1 py-1 shadow-sm dark:border-gray-700 dark:bg-gray-800/60">
+            <button
+              onClick={() => props.patternBG()}
+              className="rounded-xl border-2 border-white/10 p-2 text-gray-600 transition hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              {patternSelector()}
+            </button>
 
-          <button
-            className="h-full border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3"
-            onClick={() => props.patternBG()}
-          >
-            <div className="h-8 w-8">{patternSelector()}</div>
-          </button>
+            <button
+              onClick={() => props.fontInitializer()}
+              className="rounded-xl border-2 border-white/10 p-2 text-sm font-semibold text-gray-600 transition hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              <div className="h-5 w-5">F</div>
+            </button>
 
-          <button
-            className="h-full border-l-[1.5px] border-gray-600 px-2 font-azeret text-[2rem] font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3"
-            onClick={() => props.fontInitializer()}
-          >
-            <div className="mb-4 h-8 w-8">F</div>
-          </button>
-          <button
-            className="hidden h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:inline sm:px-3"
-            onClick={() => props.menuHandler()}
-          >
-            <Image
-              src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-              className=" inline h-8 w-8 dark:hidden"
-              height={500}
-              width={500}
-              alt="ChatGPT"
-            />
-            <Image
-              src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-              className="svgfill-gray  hidden  h-8 w-8 dark:inline"
-              height={500}
-              width={500}
-              alt="ChatGPT"
-            />
-          </button>
-          <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10 sm:px-3">
             {renderThemeChanger()}
           </div>
+
+          {/* Integration group */}
+          <div className="flex items-center gap-2 rounded-2xl border border-gray-200 bg-white/60 px-1 py-1 shadow-sm dark:border-gray-700 dark:bg-gray-800/60">
+            <button
+              onClick={() => props.menuHandler()}
+              className="rounded-xl border-2 border-white/10 p-2 transition hover:bg-gray-200 dark:hover:bg-gray-700"
+            >
+              <Image
+                src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+                alt="ChatGPT"
+                height={20}
+                width={20}
+                className="dark:invert"
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile dropdown toggle */}
+        <div className="sm:hidden">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="rounded-xl border-2 border-white/10 p-2 text-gray-600 transition hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+          >
+            {menuOpen ? (
+              <XIcon className="h-5 w-5" />
+            ) : (
+              <MenuIcon className="h-5 w-5" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile dropdown menu with framer-motion */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden border-t border-gray-200 bg-white/95 shadow-md dark:border-gray-700 dark:bg-gray-900/95 sm:hidden"
+          >
+            <div className="space-y-3 p-4">
+              {/* User group */}
+              <div className="flex items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white/60 px-3 py-2 dark:border-gray-700 dark:bg-gray-800/60">
+                <div className="flex items-center gap-2">
+                  <div className="relative h-8 w-8 overflow-hidden rounded-full border border-gray-300 dark:border-gray-600">
+                    {session?.user?.image ? (
+                      <Image
+                        src={session.user.image}
+                        alt="Profile"
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <UserCircleIcon className="h-full w-full text-gray-400 dark:text-gray-500" />
+                    )}
+                  </div>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    {session?.user?.name ?? "Guest"}
+                  </span>
+                </div>
+                <button
+                  onClick={session ? () => void signOut() : () => void signIn()}
+                  className="rounded-xl border-2 border-white/10 p-2 text-gray-600 transition hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+                >
+                  {session ? (
+                    <LogoutIcon className="h-5 w-5" />
+                  ) : (
+                    <LoginIcon className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
+
+              {/* Customization group */}
+              <div className="flex items-center justify-around gap-2 rounded-xl border border-gray-200 bg-white/60 px-3 py-2 dark:border-gray-700 dark:bg-gray-800/60">
+                <button
+                  onClick={() => props.patternBG()}
+                  className="rounded-xl border-2 border-white/10 p-2"
+                >
+                  {patternSelector()}
+                </button>
+                <button
+                  onClick={() => props.fontInitializer()}
+                  className="rounded-xl border-2 border-white/10 p-2 text-sm font-semibold"
+                >
+                  <div className="h-5 w-5">F</div>
+                </button>
+                {renderThemeChanger()}
+              </div>
+
+              {/* Integration group */}
+              <div className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white/60 px-3 py-2 dark:border-gray-700 dark:bg-gray-800/60">
+                <button
+                  onClick={() => props.menuHandler()}
+                  className="rounded-xl border-2 border-white/10 p-2"
+                >
+                  <Image
+                    src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+                    alt="ChatGPT"
+                    height={20}
+                    width={20}
+                    className="dark:invert"
+                  />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
+
 export default Navbar;
