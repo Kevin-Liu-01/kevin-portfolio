@@ -58,7 +58,7 @@ const Navbar = (props: {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
+    <nav className="sticky top-0 z-50 border-b border-black bg-white/80 backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/80">
       <div className="mx-auto flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Logo + Name */}
         <div className="flex items-center gap-3">

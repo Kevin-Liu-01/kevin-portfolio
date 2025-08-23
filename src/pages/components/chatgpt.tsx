@@ -59,6 +59,7 @@ export default function Chat(props: { setTranslate: any; translate: boolean }) {
           top_p: 1,
           frequency_penalty: 0,
           presence_penalty: 0,
+          //bearer and basic auth
         });
         setLoading(false);
 

@@ -70,8 +70,8 @@ const Home: NextPage = () => {
           <ChatIcon className="h-12 w-12" />
         </button>
         <Chat translate={translate} setTranslate={setTranslate} />
-        <div className="min-h-[calc(100vh-3.6rem)] overflow-hidden bg-gradient-to-b  from-gray-100 to-gray-200 duration-150 dark:from-gray-800 dark:to-gray-900 sm:max-h-[calc(100vh-3.6rem)] ">
-          <div className="relative z-10 grid w-full sm:h-[calc(100vh-3.6rem)] lg:grid-cols-9">
+        <div className="min-h-[calc(100vh-4.8rem)] overflow-hidden bg-gradient-to-b  from-gray-100 to-gray-200 duration-150 dark:from-gray-800 dark:to-gray-900 sm:max-h-[calc(100vh-4.8rem)] ">
+          <div className="relative z-10 grid w-full sm:h-[calc(100vh-4.8rem)] lg:grid-cols-9">
             <button
               className="relative col-span-2 hidden border-r-[1.5px] border-gray-600 bg-gray-900 lg:block"
               onClick={() => setImageState(!imageState)}
