@@ -3,13 +3,11 @@ import { Html, Head, Main, NextScript } from "next/document";
 export default function Document() {
   return (
     <Html>
-      <Head>
+      <Head title="Kevin's Portfolio">
         <meta charSet="utf-8" />
-
-        <title>Kevin&apos;s Portfolio </title>
         <meta
           name="description"
-          content="Kevin Liu is a junior in High School with a passion for computer science!"
+          content="Kevin Liu '28 is a computer science student at Princeton University!"
         />
         <meta content="/favicon.ico" property="og:image" />
         <link rel="icon" href="/favicon.ico" />
@@ -29,6 +27,16 @@ export default function Document() {
         />
         <link
           href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,301,701,300,501,401,901,400&f[]=general-sans@701,200,500,301,201,300,601,600,401,501,400,700&f[]=clash-grotesk@200,700,400,600,300,1,500&f[]=azeret-mono@501,701,800,801,200,401,500,601,900,600,300,901,700,400,100,1&display=swap"
+          rel="stylesheet"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="use-credentials"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Racing+Sans+One&family=Sedgwick+Ave+Display&family=TASA+Orbiter:wght@400..800&family=Young+Serif&display=swap"
           rel="stylesheet"
         />
       </Head>

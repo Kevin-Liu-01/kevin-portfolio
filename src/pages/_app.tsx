@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import { api } from "../utils/api";
 
 import "~/styles/globals.css";
+import { GameProvider } from "./providers/gameProvider";
 
 const App: AppType<{ session: Session | null }> = ({
   Component,
@@ -13,7 +14,9 @@ const App: AppType<{ session: Session | null }> = ({
   return (
     <ThemeProvider enableSystem={true} attribute="class">
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <GameProvider>
+          <Component {...pageProps} />
+        </GameProvider>
       </SessionProvider>
     </ThemeProvider>
   );

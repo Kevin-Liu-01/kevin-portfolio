@@ -7,6 +7,9 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
+        sedgwick: ["Sedgwick Ave Display", "Inter"],
+        racing: ["Racing Sans One", "Inter"],
+        orbiter: ["TASA Orbiter", "Inter"],
         hanken: ["Hanken Grotesk", "Inter"],
         general: ["General Sans", "Inter"],
         azeret: ["Azeret Mono", "Inter"],
