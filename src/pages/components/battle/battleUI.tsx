@@ -16,6 +16,7 @@ import {
   X,
   BedDouble,
   Bubbles,
+  Bot,
 } from "lucide-react";
 import type {
   BattleReadyMon,
@@ -43,6 +44,96 @@ import {
   TypeBadge,
   typeStyles,
 } from "./battle";
+
+const AutoBattleOverlay = ({ onStop }: { onStop: () => void }) => {
+  const clipPath = "polygon(0 15px, 15px 0, 100% 0, 100% 100%, 0 100%)";
+
+  return (
+    <motion.div
+      key="auto-battle-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="absolute inset-0 z-[100] h-full w-full p-0.5"
+      style={{
+        clipPath,
+        background:
+          "linear-gradient(135deg, rgba(6, 182, 212, 0.8), rgba(56, 189, 248, 0.8))",
+      }}
+    >
+      <div
+        className="relative h-full w-full bg-slate-900/90 backdrop-blur-sm"
+        style={{ clipPath }}
+      >
+        {/* Grid Background */}
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(6, 182, 212, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.15) 1px, transparent 1px)",
+            backgroundSize: "2rem 2rem",
+          }}
+          animate={{ backgroundPosition: ["0 0", "2rem 2rem"] }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+
+        {/* Barcode Scanner Effect */}
+        <motion.div
+          className="absolute left-0 right-0 h-1"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(107, 237, 255, 0), rgba(107, 237, 255, 0.5) 50%, rgba(107, 237, 255, 0))",
+            filter: "blur(5px)",
+          }}
+          initial={{ top: "15px" }}
+          animate={{ top: "calc(100%)" }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}
+        >
+          <div className="h-full w-full bg-cyan-200" />
+        </motion.div>
+
+        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-2 p-4 py-8">
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+              color: ["#06b6d4", "#67e8f9", "#06b6d4"],
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Bot className="h-14 w-14" />
+          </motion.div>
+          <h3 className="text-2xl font-bold uppercase tracking-[0.2em] text-cyan-300">
+            Auto-Battling
+          </h3>
+          <p className="text-sm text-slate-400">The AI is in control.</p>
+          <motion.button
+            onClick={onStop}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-2 flex items-center gap-2 bg-red-600/90 px-6 py-3 text-base font-bold text-white shadow-lg shadow-black/30 transition-colors hover:bg-red-500"
+            style={{
+              clipPath:
+                "polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)",
+            }}
+          >
+            <XCircle className="h-5 w-5" />
+            Take Control
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 // --- IMPROVED INLINE COMPONENT: ItemMenu ---
 const ItemMenu = ({
@@ -215,17 +306,17 @@ const StatusEffectDisplay = ({ status }: { status: StatusEffect }) => {
             key={i}
             className="absolute bottom-0 h-4 w-2 rounded-full bg-orange-500"
             style={{
-              left: `${Math.random() * 90 + 5}%`, // Random horizontal position
+              left: `${Math.random() * 90 + 5}%`,
               boxShadow: "0 0 10px 4px #f97316",
               scale: Math.random() * 0.5 + 0.5,
             }}
             animate={{
-              y: [0, -60, -80], // Rise higher
+              y: [0, -60, -80],
               opacity: [1, 0.5, 0],
               scaleY: [1, 2, 0.5],
             }}
             transition={{
-              duration: Math.random() * 0.5 + 0.8, // Random duration
+              duration: Math.random() * 0.5 + 0.8,
               repeat: Infinity,
               delay: i * 0.1,
               ease: "easeOut",
@@ -247,7 +338,7 @@ const StatusEffectDisplay = ({ status }: { status: StatusEffect }) => {
             animate={{
               y: [0, -80],
               opacity: [0.9, 0],
-              scale: [1, 0.5], // Shrink as it rises
+              scale: [1, 0.5],
             }}
             transition={{
               duration: Math.random() * 1 + 1.5,
@@ -266,7 +357,7 @@ const StatusEffectDisplay = ({ status }: { status: StatusEffect }) => {
             key={i}
             className="absolute top-1/2 left-1/2 text-4xl font-black text-slate-400/80"
             style={{
-              originX: `${Math.random() * 40 - 20}%`, // Randomize horizontal origin for drift
+              originX: `${Math.random() * 40 - 20}%`,
             }}
             animate={{
               y: [0, -60],
@@ -322,7 +413,6 @@ const StatusEffectDisplay = ({ status }: { status: StatusEffect }) => {
 };
 
 // --- BATTLE UI SUB-COMPONENTS ---
-
 const ScannerRing = ({
   delay,
   duration,
@@ -741,11 +831,11 @@ const Hud = ({
 
   const hudStyle = isPlayer
     ? {
-        background: "linear-gradient(to right, #06b6d4, #22d3ee)", // cyan-500, cyan-400
+        background: "linear-gradient(to right, #06b6d4, #22d3ee)",
         filter: "drop-shadow(0 0 10px #06b6d4)",
       }
     : {
-        background: "linear-gradient(to right, #ef4444, #f87171)", // red-500, red-400
+        background: "linear-gradient(to right, #ef4444, #f87171)",
         filter: "drop-shadow(0 0 10px #ef4444)",
       };
 
@@ -1584,6 +1674,9 @@ interface FightScreenProps {
   turnCount: number;
   notification: { id: number; message: string; type: NotificationType } | null;
   gameState: "fight" | "forcedSwitch";
+  isAutoBattleActive: boolean;
+  toggleAutoBattle: () => void;
+  background: number; // ADDED
 }
 
 const Corner = ({ position }: { position: string }) => (
@@ -1703,6 +1796,9 @@ export const FightScreen = ({
   turnCount,
   notification,
   gameState,
+  isAutoBattleActive,
+  toggleAutoBattle,
+  background, // DESTRUCTURED
 }: FightScreenProps) => {
   const [actionState, setActionState] = useState<ActionState>("moves");
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -1773,9 +1869,9 @@ export const FightScreen = ({
 
   return (
     <div
-      className="relative h-full w-full select-none overflow-hidden bg-slate-900 text-white"
+      className="relative h-full w-full select-none overflow-hidden bg-slate-900 text-white transition-all duration-500"
       style={{
-        backgroundImage: "url(/images/bg-space.jpg)",
+        backgroundImage: `url(/images/backgrounds/background-${background}.jpg)`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -1812,6 +1908,26 @@ export const FightScreen = ({
         </AnimatePresence>
       </div>
 
+      {/* FIXED: Speech Bubbles moved to a higher level in the DOM tree */}
+      <AnimatePresence>
+        {dialogue.cpu && (
+          <div className="absolute top-[8%] right-[5%] z-[80] aspect-[2/1] w-[45%] max-w-lg">
+            <div className="absolute -bottom-[20%] -left-[25%] h-[120%] w-[60%]">
+              <SpeechBubble text={dialogue.cpu} isPlayer={false} />
+            </div>
+          </div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {dialogue.player && (
+          <div className="absolute bottom-[35%] left-[5%] z-[80] aspect-[2/1] w-[55%] max-w-2xl">
+            <div className="absolute -bottom-[20%] -right-[18%] h-[110%] w-[55%]">
+              <SpeechBubble text={dialogue.player} isPlayer={true} />
+            </div>
+          </div>
+        )}
+      </AnimatePresence>
+
       <motion.div
         className="absolute top-[8%] right-[5%] z-10 aspect-[2/1] w-[45%] max-w-lg [perspective:1000px]"
         initial={{ opacity: 0, y: -100 }}
@@ -1819,12 +1935,6 @@ export const FightScreen = ({
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="absolute -bottom-[20%] -left-[25%] z-20 h-[120%] w-[60%]">
-          <AnimatePresence>
-            {dialogue.cpu && (
-              <SpeechBubble text={dialogue.cpu} isPlayer={false} />
-            )}
-          </AnimatePresence>
-
           <motion.div
             variants={cpuTrainerVariants}
             animate={gruntTrainerState}
@@ -1851,7 +1961,9 @@ export const FightScreen = ({
 
           <div className="absolute inset-0 z-20 ">
             <AnimatePresence>
-              {isPlayerTurn && actionState === "moves" && <TargetingReticule />}
+              {isPlayerTurn &&
+                actionState === "moves" &&
+                !isAutoBattleActive && <TargetingReticule />}
             </AnimatePresence>
 
             <PortfolioMonSprite
@@ -1882,12 +1994,6 @@ export const FightScreen = ({
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="absolute -bottom-[20%] -right-[18%] z-20 h-[110%] w-[55%]">
-          <AnimatePresence>
-            {dialogue.player && (
-              <SpeechBubble text={dialogue.player} isPlayer={true} />
-            )}
-          </AnimatePresence>
-
           <motion.div
             variants={playerTrainerVariants}
             animate={playerTrainerState}
@@ -1980,6 +2086,13 @@ export const FightScreen = ({
             boxShadow: "0 0 15px rgba(34, 211, 238, 0.5)",
           }}
         >
+          <AnimatePresence>
+            {isAutoBattleActive &&
+              isPlayerTurn &&
+              gameState !== "forcedSwitch" && (
+                <AutoBattleOverlay onStop={toggleAutoBattle} />
+              )}
+          </AnimatePresence>
           <div
             className="flex h-full w-full bg-slate-900/90"
             style={{
@@ -2033,11 +2146,11 @@ export const FightScreen = ({
                 />
               </div>
 
-              <div className="flex w-[60%] flex-col p-4">
-                <div className="h-[calc(100%-3.5rem)] flex-grow">
+              <div className="relative flex w-[60%] flex-col p-4">
+                <div className="relative h-[calc(100%-3.5rem)] flex-grow">
                   <AnimatePresence mode="wait">
                     {gameState === "forcedSwitch" ? (
-                      <ForcedSwitchScreen />
+                      <ForcedSwitchScreen key="forced-switch" />
                     ) : actionState === "moves" ? (
                       <motion.div
                         key="moves"
@@ -2059,11 +2172,12 @@ export const FightScreen = ({
                       </motion.div>
                     ) : actionState === "switch" ? (
                       <SwitchItemView
+                        key="switch-view"
                         onCancel={() => setActionState("moves")}
                         title="Choose a Project to switch to."
                       />
                     ) : actionState === "items" ? (
-                      <div className="h-full overflow-y-auto">
+                      <div className="h-full overflow-y-auto" key="items-view">
                         <ItemMenu
                           inventory={inventory}
                           onItemSelect={handleItemSelect}
@@ -2072,6 +2186,7 @@ export const FightScreen = ({
                       </div>
                     ) : actionState === "itemTarget" ? (
                       <SwitchItemView
+                        key="item-target-view"
                         onCancel={() => setActionState("items")}
                         title={`Use ${selectedItem?.name || "Item"} on...`}
                       />
@@ -2083,7 +2198,11 @@ export const FightScreen = ({
                   <ActionButton
                     icon={<ArrowRightLeft className="h-4 w-4" />}
                     onClick={() => setActionState("switch")}
-                    disabled={!isPlayerTurn || gameState === "forcedSwitch"}
+                    disabled={
+                      !isPlayerTurn ||
+                      gameState === "forcedSwitch" ||
+                      isAutoBattleActive
+                    }
                     color="bg-yellow-600/80 hover:bg-yellow-500"
                   >
                     Switch
@@ -2092,7 +2211,11 @@ export const FightScreen = ({
                   <ActionButton
                     icon={<ShoppingBag className="h-4 w-4" />}
                     onClick={() => setActionState("items")}
-                    disabled={!isPlayerTurn || gameState === "forcedSwitch"}
+                    disabled={
+                      !isPlayerTurn ||
+                      gameState === "forcedSwitch" ||
+                      isAutoBattleActive
+                    }
                     color="bg-blue-600/80 hover:bg-blue-500"
                   >
                     Items
@@ -2109,7 +2232,11 @@ export const FightScreen = ({
                   <ActionButton
                     icon={<XCircle className="h-4 w-4" />}
                     onClick={onRun}
-                    disabled={!isPlayerTurn || gameState === "forcedSwitch"}
+                    disabled={
+                      !isPlayerTurn ||
+                      gameState === "forcedSwitch" ||
+                      isAutoBattleActive
+                    }
                     color="bg-slate-600/80 hover:bg-slate-500"
                   >
                     Run

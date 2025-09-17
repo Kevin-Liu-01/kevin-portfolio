@@ -11,14 +11,17 @@ import {
   Menu,
   X,
   Shield,
-  RefreshCw, // For Reset
-  Flag, // For Forfeit/Run
-  Swords, // For Start Battle
-  CheckSquare, // For Confirm Team
-  Bot, // For Auto-Battle (WIP)
+  RefreshCw,
+  Flag,
+  Swords,
+  CheckSquare,
+  Bot,
+  Layers,
+  Save,
+  FolderDown,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useGame } from "../providers/gameProvider"; // Import the game context hook
+import { useGame } from "../providers/gameProvider";
 
 // Helper component for styled button groups with hover animation
 const ClippedGroupContainer = ({
@@ -29,7 +32,7 @@ const ClippedGroupContainer = ({
   className?: string;
 }) => (
   <motion.div
-    className={`relative overflow-hidden bg-cyan-400/20 p-px ${className}`}
+    className={`relative bg-cyan-400/20 p-px ${className}`}
     style={{
       clipPath:
         "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
@@ -38,7 +41,6 @@ const ClippedGroupContainer = ({
     whileHover="hover"
     animate="rest"
   >
-    {/* Animated sheen/glint effect on hover */}
     <motion.div
       className="absolute top-0 left-0 h-full w-12 bg-white/25 blur-md"
       variants={{
@@ -66,7 +68,7 @@ const ClippedGroupContainer = ({
 const ClippedButton = (props: React.ComponentProps<"button">) => (
   <button
     {...props}
-    className={`p-2 text-slate-300 transition-colors duration-200 hover:bg-cyan-400/20 hover:text-cyan-300 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-slate-300 ${props.className}`}
+    className={`relative p-2 text-slate-300 transition-colors duration-200 hover:bg-cyan-400/20 hover:text-cyan-300 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-slate-300 ${props.className}`}
     style={{
       clipPath:
         "polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)",
@@ -74,24 +76,140 @@ const ClippedButton = (props: React.ComponentProps<"button">) => (
   />
 );
 
-// Special component for the author's nameplate
+// --- NEW SCI-FI AUTO-BATTLE BUTTON ---
+const AutoBattleButton = () => {
+  const { isAutoBattleActive, toggleAutoBattle } = useGame();
+
+  const reticleVariants = {
+    active: {
+      opacity: [0, 1, 1, 0],
+      pathLength: [0, 1, 1, 1],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+        times: [0, 0.2, 0.8, 1],
+      },
+    },
+    inactive: { opacity: 0 },
+  };
+
+  return (
+    <ClippedButton
+      onClick={toggleAutoBattle}
+      title="Toggle Auto-Battle"
+      className="!flex items-center justify-center overflow-hidden"
+    >
+      <AnimatePresence>
+        {isAutoBattleActive && (
+          <motion.div
+            className="pointer-events-none absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="absolute inset-1.5 rounded-full bg-cyan-400"
+              animate={{ scale: [0.5, 1, 0.5], opacity: [0.5, 0.8, 0.5] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{ filter: "blur(4px)" }}
+            />
+            <motion.svg
+              viewBox="0 0 24 24"
+              className="absolute inset-0 text-cyan-300"
+              style={{ filter: "drop-shadow(0 0 2px currentColor)" }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            >
+              <motion.circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeDasharray="4 8"
+                fill="none"
+                variants={reticleVariants}
+                animate="active"
+              />
+            </motion.svg>
+            <motion.svg
+              viewBox="0 0 24 24"
+              className="absolute inset-0 text-cyan-300"
+              style={{ filter: "drop-shadow(0 0 2px currentColor)" }}
+              animate={{ rotate: -360 }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "linear",
+                delay: 0.5,
+              }}
+            >
+              <motion.path
+                d="M4 12 L8 12 M16 12 L20 12 M12 4 L12 8 M12 16 L12 20"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                variants={reticleVariants}
+                animate="active"
+              />
+            </motion.svg>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <Bot
+        className={`relative h-5 w-5 transition-colors ${
+          isAutoBattleActive ? "text-white" : "text-slate-300"
+        }`}
+      />
+    </ClippedButton>
+  );
+};
+
+const BackgroundPreview = ({ nextBgIndex }: { nextBgIndex: number }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="absolute top-[calc(100%+0.5rem)] right-0 z-[100] mb-3 w-48 rounded-md border border-cyan-400/50 bg-slate-900/80 p-1 shadow-2xl backdrop-blur-md"
+    >
+      <div className="relative aspect-video w-full overflow-hidden rounded">
+        <Image
+          src={`/images/backgrounds/background-${nextBgIndex}.jpg`}
+          alt={`Preview of background ${nextBgIndex}`}
+          fill
+          className="object-cover"
+        />
+      </div>
+      <p className="mt-1 text-center text-xs font-bold text-slate-300">
+        Next Arena
+      </p>
+    </motion.div>
+  );
+};
+
 const AuthorBadge = () => (
   <div
     className="absolute bottom-1 right-[-0.75rem] z-20 p-px shadow-lg shadow-black/30"
     style={{
       clipPath:
-        "polygon(5px 0, 100% 0, calc(100% - 10px) 100%, 5px 100%, 0 50%)", // Updated clipPath for parallelogram cut
-      background: "linear-gradient(to bottom right, #a0aec0, #2d3748)", // Darker metallic border
+        "polygon(5px 0, 100% 0, calc(100% - 10px) 100%, 5px 100%, 0 50%)",
+      background: "linear-gradient(to bottom right, #a0aec0, #2d3748)",
     }}
   >
     <div
       className="relative flex items-center justify-center bg-gradient-to-b from-slate-200 via-slate-400 to-slate-200 py-0.5 pl-2 pr-3"
       style={{
         clipPath:
-          "polygon(5px 0, 100% 0, calc(100% - 10px) 100%, 5px 100%, 0 50%)", // Updated clipPath for parallelogram cut
+          "polygon(5px 0, 100% 0, calc(100% - 10px) 100%, 5px 100%, 0 50%)",
       }}
     >
-      {/* Polished highlight glint */}
       <div
         className="absolute left-0 top-0.5 h-[1px] w-full opacity-50"
         style={{
@@ -102,7 +220,7 @@ const AuthorBadge = () => (
       <span
         className="font-hanken text-[7px] font-bold uppercase tracking-wider text-slate-800"
         style={{
-          textShadow: "0 1px 0px rgba(255, 255, 255, 0.4)", // Engraved text effect
+          textShadow: "0 1px 0px rgba(255, 255, 255, 0.4)",
         }}
       >
         Kevin Liu &apos;28
@@ -111,7 +229,6 @@ const AuthorBadge = () => (
   </div>
 );
 
-// Logo component
 const PortfolioMonLogo = () => {
   const LogoIcon = (props: React.ComponentProps<"svg">) => (
     <svg
@@ -224,21 +341,19 @@ const PortfolioMonLogo = () => {
   );
 };
 
-// UPDATED: LogoContainer with a Smash Bros.-inspired animated line aesthetic
 const LogoContainer = ({ children }: { children: React.ReactNode }) => {
   const lineContainerVariants = {
     rest: {},
     hover: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
   };
 
-  // Adjusted rest opacity for subtle visibility
   const lineFromLeft = {
     rest: { opacity: 0.1, x: -30 },
     hover: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } },
   };
 
   const lineFromRight = {
-    rest: { opacity: 0.1, x: 30 }, // Adjusted rest opacity for subtle visibility
+    rest: { opacity: 0.1, x: 30 },
     hover: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } },
   };
 
@@ -249,13 +364,10 @@ const LogoContainer = ({ children }: { children: React.ReactNode }) => {
         clipPath: "polygon(0 0, 100% 0, calc(100% - 40px) 100%, 0 100%)",
       }}
     >
-      {/* Container for the new line effects that activate on hover */}
       <motion.div
         variants={lineContainerVariants}
         className="absolute inset-0 z-0"
       >
-        {/* --- SMASH BROS INSPIRED LINES --- */}
-        {/* Main diagonal cross (bottom-left to top-right) */}
         <motion.div
           variants={lineFromLeft}
           className="absolute inset-0 bg-cyan-400/40"
@@ -263,7 +375,6 @@ const LogoContainer = ({ children }: { children: React.ReactNode }) => {
             clipPath: "polygon(0 100%, 15% 100%, 85% 0, 70% 0)",
           }}
         />
-        {/* Secondary cross line (top-left to bottom-right, extends to top) */}
         <motion.div
           variants={lineFromLeft}
           className="absolute inset-0 bg-yellow-300/40"
@@ -271,7 +382,6 @@ const LogoContainer = ({ children }: { children: React.ReactNode }) => {
             clipPath: "polygon(0% 0%, 5% 0%, 100% 100%, 95% 100%)",
           }}
         />
-        {/* Diagonal Line parallel to the container's edge (kept from original) */}
         <motion.div
           variants={lineFromRight}
           className="absolute inset-0 bg-cyan-300/70"
@@ -281,8 +391,6 @@ const LogoContainer = ({ children }: { children: React.ReactNode }) => {
           }}
         />
       </motion.div>
-
-      {/* The actual logo, placed on top of the effects */}
       <div className="relative z-10">{children}</div>
     </motion.div>
   );
@@ -301,11 +409,15 @@ const Navbar = (props: {
     handleRun,
     handleConfirmTeam,
     startBattle,
-    isAutoBattleActive,
-    toggleAutoBattle,
+    cycleBackground,
+    background,
   } = useGame();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showBgPreview, setShowBgPreview] = useState(false);
+
+  // Assuming 5 backgrounds, named background-1.jpg to background-5.jpg
+  const nextBgIndex = (background % 5) + 1;
 
   useEffect(() => setMounted(true), []);
 
@@ -329,32 +441,19 @@ const Navbar = (props: {
   const octagonalClipPath =
     "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)";
 
-  const speedLineVariant = {
-    rest: { opacity: 0.2 },
-    hover: {
-      opacity: 0.5,
-      x: -5,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
   return (
     <motion.nav
-      className="relative top-0 z-50 overflow-hidden border-b border-cyan-400/20 bg-slate-900 backdrop-blur-md"
+      className="relative top-0 z-50 border-b border-cyan-400/20 bg-slate-900 backdrop-blur-md"
       initial="rest"
       whileHover="hover"
       animate="rest"
     >
-      {/* CONTAINER FOR ALL BACKGROUND EFFECTS */}
-      <div className="absolute inset-0 z-0">
-        {/* Gradient fill that appears on hover */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.div
           className="absolute inset-0 bg-gradient-to-b from-slate-800/50 to-slate-900/50"
           variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
           transition={{ duration: 0.3 }}
         />
-
-        {/* --- Targeting reticle that fades in on hover --- */}
         <motion.div
           className="absolute inset-0"
           style={{
@@ -368,10 +467,7 @@ const Navbar = (props: {
           }}
           transition={{ duration: 0.5 }}
         />
-
-        {/* Container for static and animated circuit lines */}
         <div className="relative h-full w-full opacity-40">
-          {/* Static lines from original design */}
           <div
             className="absolute inset-0 bg-cyan-300/50"
             style={{ clipPath: "polygon(0% 48%, 100% 35%, 100% 37%, 0% 50%)" }}
@@ -385,12 +481,17 @@ const Navbar = (props: {
             style={{ clipPath: "polygon(15% 0, 16% 0, 10% 100%, 9% 100%)" }}
           />
           <motion.div
-            variants={speedLineVariant}
+            variants={{
+              rest: { opacity: 0.2 },
+              hover: {
+                opacity: 0.5,
+                x: -5,
+                transition: { duration: 0.5, ease: "easeOut" },
+              },
+            }}
             className="absolute inset-0 bg-cyan-200/50"
             style={{ clipPath: "polygon(50% 0, 51% 0, 65% 100%, 64% 100%)" }}
           />
-
-          {/* --- Additional pulsing circuit lines for more activity --- */}
           <motion.div
             className="absolute inset-0 bg-cyan-400"
             style={{ clipPath: "polygon(80% 0, 81% 0, 81% 100%, 80% 100%)" }}
@@ -409,8 +510,6 @@ const Navbar = (props: {
             }}
           />
         </div>
-
-        {/* --- Perpetual vertical scanning line --- */}
         <motion.div
           className="absolute left-0 right-0 h-px bg-cyan-300/70 shadow-[0_0_10px_theme(colors.cyan.300)]"
           initial={{ y: "0%" }}
@@ -424,13 +523,11 @@ const Navbar = (props: {
         />
       </div>
 
-      {/* Main content layout */}
       <div className="relative z-10 flex h-full w-full items-stretch justify-start">
         <LogoContainer>
           <PortfolioMonLogo />
         </LogoContainer>
 
-        {/* Container for all buttons, pushed to the right */}
         <div className="ml-auto flex items-center gap-3 pr-4 sm:pr-6 lg:pr-8">
           <div className="hidden items-center gap-3 sm:flex">
             <ClippedGroupContainer>
@@ -466,56 +563,66 @@ const Navbar = (props: {
               </ClippedButton>
             </ClippedGroupContainer>
 
-            {/* NEW: Game State Controls Section */}
-            <ClippedGroupContainer>
-              {/* Reset Button */}
-              {(gameState === "fight" ||
-                gameState === "gameOver" ||
-                gameState === "forcedSwitch") && (
-                <ClippedButton onClick={handleReset} title="Reset Game">
-                  <RefreshCw className="h-5 w-5" />
-                </ClippedButton>
-              )}
+            {/* Game State Controls */}
+            {(gameState === "fight" ||
+              gameState === "gameOver" ||
+              gameState === "forcedSwitch" ||
+              gameState === "teamSelect" ||
+              gameState === "teamPreview") && (
+              <ClippedGroupContainer>
+                {(gameState === "fight" ||
+                  gameState === "gameOver" ||
+                  gameState === "forcedSwitch") && (
+                  <>
+                    <ClippedButton onClick={handleReset} title="Reset Game">
+                      <RefreshCw className="h-5 w-5" />
+                    </ClippedButton>
+                    <ClippedButton onClick={handleRun} title="Forfeit Match">
+                      <Flag className="h-5 w-5" />
+                    </ClippedButton>
+                    <AutoBattleButton />
+                  </>
+                )}
+                {gameState === "teamSelect" && (
+                  <ClippedButton
+                    onClick={handleConfirmTeam}
+                    title="Confirm Team"
+                    disabled={playerTeam.length !== 3}
+                  >
+                    <CheckSquare className="h-5 w-5" />
+                  </ClippedButton>
+                )}
+                {gameState === "teamPreview" && (
+                  <ClippedButton onClick={startBattle} title="Start Battle">
+                    <Swords className="h-5 w-5" />
+                  </ClippedButton>
+                )}
+              </ClippedGroupContainer>
+            )}
 
-              {/* Forfeit Button */}
-              {(gameState === "fight" || gameState === "forcedSwitch") && (
-                <ClippedButton onClick={handleRun} title="Forfeit Match">
-                  <Flag className="h-5 w-5" />
-                </ClippedButton>
-              )}
-
-              {/* Auto-Battle Button (Placeholder) */}
-              {(gameState === "fight" || gameState === "forcedSwitch") && (
-                <ClippedButton
-                  onClick={toggleAutoBattle}
-                  title="Toggle Auto-Battle"
-                  className={
-                    isAutoBattleActive ? "bg-cyan-400/20 text-cyan-300" : ""
-                  }
+            {/* Game/Visuals Controls */}
+            <div className="relative">
+              <ClippedGroupContainer>
+                <div
+                  onMouseEnter={() => setShowBgPreview(true)}
+                  onMouseLeave={() => setShowBgPreview(false)}
                 >
-                  <Bot className="h-5 w-5" />
-                </ClippedButton>
-              )}
+                  <ClippedButton
+                    onClick={cycleBackground}
+                    title="Change Background"
+                  >
+                    <Layers className="h-5 w-5" />
+                  </ClippedButton>
+                </div>
+              </ClippedGroupContainer>
+              <AnimatePresence>
+                {showBgPreview && (
+                  <BackgroundPreview nextBgIndex={nextBgIndex} />
+                )}
+              </AnimatePresence>
+            </div>
 
-              {/* Confirm Team Button */}
-              {gameState === "teamSelect" && (
-                <ClippedButton
-                  onClick={handleConfirmTeam}
-                  title="Confirm Team"
-                  disabled={playerTeam.length !== 3}
-                >
-                  <CheckSquare className="h-5 w-5" />
-                </ClippedButton>
-              )}
-
-              {/* Start Battle Button */}
-              {gameState === "teamPreview" && (
-                <ClippedButton onClick={startBattle} title="Start Battle">
-                  <Swords className="h-5 w-5" />
-                </ClippedButton>
-              )}
-            </ClippedGroupContainer>
-
+            {/* General Settings */}
             <ClippedGroupContainer>
               <ClippedButton
                 onClick={() => props.fontInitializer()}
@@ -527,18 +634,6 @@ const Navbar = (props: {
                 </div>
               </ClippedButton>
               {renderThemeChanger()}
-            </ClippedGroupContainer>
-
-            <ClippedGroupContainer>
-              <ClippedButton onClick={() => props.menuHandler()} title="Ask AI">
-                <Image
-                  src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                  alt="ChatGPT"
-                  height={20}
-                  width={20}
-                  className="dark:invert"
-                />
-              </ClippedButton>
             </ClippedGroupContainer>
           </div>
 
@@ -600,39 +695,21 @@ const Navbar = (props: {
                 </div>
               </ClippedGroupContainer>
 
-              {/* NEW: Game State Controls for Mobile */}
               <ClippedGroupContainer className="w-full">
                 <div className="flex w-full items-center justify-around">
-                  {/* Reset Button */}
                   {(gameState === "fight" ||
                     gameState === "gameOver" ||
                     gameState === "forcedSwitch") && (
-                    <ClippedButton onClick={handleReset} title="Reset Game">
-                      <RefreshCw className="h-5 w-5" />
-                    </ClippedButton>
+                    <>
+                      <ClippedButton onClick={handleReset} title="Reset Game">
+                        <RefreshCw className="h-5 w-5" />
+                      </ClippedButton>
+                      <ClippedButton onClick={handleRun} title="Forfeit Match">
+                        <Flag className="h-5 w-5" />
+                      </ClippedButton>
+                      <AutoBattleButton />
+                    </>
                   )}
-
-                  {/* Forfeit Button */}
-                  {(gameState === "fight" || gameState === "forcedSwitch") && (
-                    <ClippedButton onClick={handleRun} title="Forfeit Match">
-                      <Flag className="h-5 w-5" />
-                    </ClippedButton>
-                  )}
-
-                  {/* Auto-Battle Button */}
-                  {(gameState === "fight" || gameState === "forcedSwitch") && (
-                    <ClippedButton
-                      onClick={toggleAutoBattle}
-                      title="Toggle Auto-Battle"
-                      className={
-                        isAutoBattleActive ? "bg-cyan-400/20 text-cyan-300" : ""
-                      }
-                    >
-                      <Bot className="h-5 w-5" />
-                    </ClippedButton>
-                  )}
-
-                  {/* Confirm Team Button */}
                   {gameState === "teamSelect" && (
                     <ClippedButton
                       onClick={handleConfirmTeam}
@@ -642,13 +719,22 @@ const Navbar = (props: {
                       <CheckSquare className="h-5 w-5" />
                     </ClippedButton>
                   )}
-
-                  {/* Start Battle Button */}
                   {gameState === "teamPreview" && (
                     <ClippedButton onClick={startBattle} title="Start Battle">
                       <Swords className="h-5 w-5" />
                     </ClippedButton>
                   )}
+                </div>
+              </ClippedGroupContainer>
+
+              <ClippedGroupContainer className="w-full">
+                <div className="flex w-full items-center justify-around">
+                  <ClippedButton
+                    onClick={cycleBackground}
+                    title="Change Background"
+                  >
+                    <Layers className="h-5 w-5" />
+                  </ClippedButton>
                 </div>
               </ClippedGroupContainer>
 
@@ -663,19 +749,6 @@ const Navbar = (props: {
                     </div>
                   </ClippedButton>
                   {renderThemeChanger()}
-                </div>
-              </ClippedGroupContainer>
-              <ClippedGroupContainer className="w-full">
-                <div className="flex w-full items-center justify-center">
-                  <ClippedButton onClick={() => props.menuHandler()}>
-                    <Image
-                      src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                      alt="ChatGPT"
-                      height={20}
-                      width={20}
-                      className="dark:invert"
-                    />
-                  </ClippedButton>
                 </div>
               </ClippedGroupContainer>
             </div>

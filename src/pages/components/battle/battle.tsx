@@ -10,7 +10,7 @@ import {
   ExternalLink,
   X,
 } from "lucide-react";
-import {
+import type {
   PlayerInventory,
   Item,
   BattleReadyMon,
@@ -395,7 +395,9 @@ export const GuideModal = ({
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="relative flex h-full max-h-[90vh] w-full max-w-3xl flex-col border border-slate-600 bg-slate-800 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+              e.stopPropagation()
+            }
             style={{
               clipPath:
                 "polygon(0 15px, 15px 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%)",
@@ -454,8 +456,8 @@ export const GuideModal = ({
                     </li>
 
                     <li>
-                      <strong className="text-gray-400">Sleep:</strong> Can't
-                      move for 1-3 turns.
+                      <strong className="text-gray-400">Sleep:</strong>{" "}
+                      Can&apos;t move for 1-3 turns.
                     </li>
 
                     <li>

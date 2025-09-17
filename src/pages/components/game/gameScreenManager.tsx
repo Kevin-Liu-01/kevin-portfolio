@@ -65,6 +65,9 @@ const GameScreenManager = () => {
                 onItemUse={game.handleItemUse}
                 turnCount={game.turnCount}
                 notification={game.notification}
+                isAutoBattleActive={game.isAutoBattleActive}
+                toggleAutoBattle={game.toggleAutoBattle}
+                background={game.background}
               />
             )}
         </motion.div>

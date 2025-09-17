@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import { useState } from "react";
 import Navbar from "./components/navbar";
-import Chat from "./components/chatgpt";
 import GameScreenManager from "./components/game/gameScreenManager";
 
 const Home: NextPage = () => {
@@ -49,7 +48,6 @@ const Home: NextPage = () => {
           fontInitializer={fontInitializer}
         />
       </div>
-      <Chat translate={translate} setTranslate={setTranslate} />
 
       <div className="relative z-10 h-[calc(100vh-4.8rem)] w-full">
         <GameScreenManager />

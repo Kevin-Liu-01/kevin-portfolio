@@ -26,6 +26,9 @@ import type {
   NotificationItem,
 } from "../context/gameContext";
 
+// --- BATTLE BACKGROUNDS ---
+const TOTAL_BACKGROUNDS = 5; // Set this to the number of background images you have
+
 // --- TYPE FOR BATTLE STATS ---
 export interface BattleStats {
   damageDealt: number;
@@ -68,6 +71,7 @@ interface IGameContext {
   isAutoBattleActive: boolean;
   playerStats: BattleStats;
   cpuStats: BattleStats;
+  background: number;
   handleTeamSelect: (mon: PortfolioMon) => void;
   handleConfirmTeam: () => void;
   startBattle: () => void;
@@ -77,6 +81,7 @@ interface IGameContext {
   handleRun: () => void;
   handleReset: () => void;
   toggleAutoBattle: () => void;
+  cycleBackground: () => void;
 }
 
 const GameContext = createContext<IGameContext | null>(null);
@@ -171,6 +176,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [cpuStats, setCpuStats] = useState<BattleStats>(initialStats);
   const [isAutoBattleActive, setIsAutoBattleActive] = useState(false);
   const [isProcessingTurn, setIsProcessingTurn] = useState(false);
+  const [background, setBackground] = useState(1);
 
   // --- REFS FOR MANAGING ASYNC OPERATIONS SAFELY ---
   const battleStateRef = useRef({
@@ -810,6 +816,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
     setCpuStats(initialStats);
     setIsAutoBattleActive(false);
     setIsProcessingTurn(false);
+    // setBackground(1)
   }, []);
 
   const toggleAutoBattle = useCallback(() => {
@@ -824,6 +831,13 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       return newState;
     });
   }, [addToLog, showNotification]);
+
+  const cycleBackground = useCallback(() => {
+    setBackground((prev) => {
+      const next = prev + 1;
+      return next > TOTAL_BACKGROUNDS ? 1 : next;
+    });
+  }, []);
 
   // Refactored Auto-battle logic into a single, robust useEffect
   useEffect(() => {
@@ -957,6 +971,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       isAutoBattleActive,
       playerStats,
       cpuStats,
+      background,
       handleTeamSelect,
       handleConfirmTeam,
       startBattle,
@@ -966,6 +981,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       handleRun,
       handleReset,
       toggleAutoBattle,
+      cycleBackground,
     }),
     [
       gameState,
@@ -988,6 +1004,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       isAutoBattleActive,
       playerStats,
       cpuStats,
+      background,
       handleTeamSelect,
       handleConfirmTeam,
       startBattle,
@@ -997,6 +1014,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
       handleRun,
       handleReset,
       toggleAutoBattle,
+      cycleBackground,
     ]
   );
 
