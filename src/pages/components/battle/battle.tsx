@@ -15,7 +15,7 @@ import {
   Item,
   BattleReadyMon,
   AnimationState,
-} from "../portfoliobattlegame";
+} from "../../context/gameContext";
 
 // --- TYPE & STATUS STYLING ---
 export const typeStyles: {
