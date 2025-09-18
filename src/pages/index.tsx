@@ -33,7 +33,7 @@ const Home: NextPage = () => {
 
   return (
     <main
-      className={`relative h-screen overflow-hidden bg-slate-900 ${font}`}
+      className={`relative h-screen overflow-hidden bg-slate-100 dark:bg-slate-900 ${font}`}
       style={{
         fontFamily:
           font === "font-orbiter" ? "'Orbiter', sans-serif" : undefined,

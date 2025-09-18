@@ -12,7 +12,7 @@ const App: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <ThemeProvider enableSystem={true} attribute="class">
+    <ThemeProvider enableSystem={true} attribute="class" defaultTheme="dark">
       <SessionProvider session={session}>
         <GameProvider>
           <Component {...pageProps} />

@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useGame } from "../providers/gameProvider";
+import LogoIcon from "./logoIcon";
 
 // Helper component for styled button groups with hover animation
 const ClippedGroupContainer = ({
@@ -30,7 +31,7 @@ const ClippedGroupContainer = ({
   className?: string;
 }) => (
   <motion.div
-    className={`relative bg-cyan-400/20 p-px ${className}`}
+    className={`relative bg-slate-300/50 p-px dark:bg-cyan-400/20 ${className}`}
     style={{
       clipPath:
         "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
@@ -40,7 +41,7 @@ const ClippedGroupContainer = ({
     animate="rest"
   >
     <motion.div
-      className="absolute top-0 left-0 h-full w-12 bg-white/25 blur-md"
+      className="absolute top-0 left-0 h-full w-12 bg-black/10 blur-md dark:bg-white/25"
       variants={{
         rest: { x: "-150%", skewX: -20 },
         hover: {
@@ -51,7 +52,7 @@ const ClippedGroupContainer = ({
       }}
     />
     <div
-      className="relative flex h-full w-full items-center gap-1 bg-slate-900/80 px-1 py-1"
+      className="relative flex h-full w-full items-center gap-1 bg-slate-100/80 px-1 py-1 dark:bg-slate-900/80"
       style={{
         clipPath:
           "polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)",
@@ -66,7 +67,7 @@ const ClippedGroupContainer = ({
 const ClippedButton = (props: React.ComponentProps<"button">) => (
   <button
     {...props}
-    className={`relative p-2 text-slate-300 transition-colors duration-200 hover:bg-cyan-400/20 hover:text-cyan-300 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-slate-300 ${props.className}`}
+    className={`relative p-2 text-slate-600 transition-colors duration-200 hover:bg-cyan-400/10 hover:text-cyan-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-slate-600 dark:text-slate-300 dark:hover:bg-cyan-400/20 dark:hover:text-cyan-300 dark:disabled:hover:text-slate-300 ${props.className}`}
     style={{
       clipPath:
         "polygon(0 6px, 6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%)",
@@ -118,7 +119,7 @@ const AutoBattleButton = () => {
             />
             <motion.svg
               viewBox="0 0 24 24"
-              className="absolute inset-0 text-cyan-300"
+              className="absolute inset-0 text-cyan-500 dark:text-cyan-300"
               style={{ filter: "drop-shadow(0 0 2px currentColor)" }}
               animate={{ rotate: 360 }}
               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
@@ -137,7 +138,7 @@ const AutoBattleButton = () => {
             </motion.svg>
             <motion.svg
               viewBox="0 0 24 24"
-              className="absolute inset-0 text-cyan-300"
+              className="absolute inset-0 text-cyan-500 dark:text-cyan-300"
               style={{ filter: "drop-shadow(0 0 2px currentColor)" }}
               animate={{ rotate: -360 }}
               transition={{
@@ -161,7 +162,9 @@ const AutoBattleButton = () => {
       </AnimatePresence>
       <Bot
         className={`relative h-5 w-5 transition-colors ${
-          isAutoBattleActive ? "text-white" : "text-slate-300"
+          isAutoBattleActive
+            ? "text-cyan-700 dark:text-white"
+            : "text-slate-600 dark:text-slate-300"
         }`}
       />
     </ClippedButton>
@@ -175,7 +178,7 @@ const BackgroundPreview = ({ nextBgIndex }: { nextBgIndex: number }) => {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.95 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="absolute top-[calc(100%+0.5rem)] right-0 z-[100] mb-3 w-48 rounded-md border border-cyan-400/50 bg-slate-900/80 p-1 shadow-2xl backdrop-blur-md"
+      className="absolute top-[calc(100%+0.5rem)] right-0 z-[100] mb-3 w-48 rounded-md border border-slate-300 bg-white/80 p-1 shadow-2xl backdrop-blur-md dark:border-cyan-400/50 dark:bg-slate-900/80"
     >
       <div className="relative aspect-video w-full overflow-hidden rounded">
         <Image
@@ -185,7 +188,7 @@ const BackgroundPreview = ({ nextBgIndex }: { nextBgIndex: number }) => {
           className="object-cover"
         />
       </div>
-      <p className="mt-1 text-center text-xs font-bold text-slate-300">
+      <p className="mt-1 text-center text-xs font-bold text-slate-700 dark:text-slate-300">
         Next Arena
       </p>
     </motion.div>
@@ -228,44 +231,6 @@ const AuthorBadge = () => (
 );
 
 const PortfolioMonLogo = () => {
-  const LogoIcon = (props: React.ComponentProps<"svg">) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 64 64"
-      fill="none"
-      {...props}
-    >
-      <path d="M4 62 L12 54 H 52 L 60 62 Z" className="fill-slate-700" />
-      <path d="M12 54 H 52" className="stroke-cyan-400/50" strokeWidth="2" />
-      <g className="fill-cyan-400">
-        <path d="M2 32 C 8 36, 12 36, 12 36 V 28 C 12 28, 8 28, 2 32 Z" />
-        <path d="M62 32 C 56 36, 52 36, 52 36 V 28 C 52 28, 56 28, 62 32 Z" />
-      </g>
-      <path
-        d="M32 4 L 56 16 V 36 C 56 42, 48 48, 32 54 C 16 48, 8 42, 8 36 V 16 Z"
-        className="fill-slate-800 stroke-slate-600"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M12 28 C 20 20, 44 20, 52 28 V 36 C 44 28, 20 28, 12 36 V 28 Z"
-        className="fill-cyan-400"
-      />
-      <path
-        d="M14 30 C 22 24, 42 24, 50 30"
-        className="stroke-cyan-200/75"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M32 10 V 20 M 24 26 L 32 20 L 40 26"
-        className="stroke-red-500/70"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-
   const glitchLayer1Variants = {
     rest: { x: -1, y: 1 },
     hover: { x: -2.5, y: 1.5 },
@@ -302,7 +267,7 @@ const PortfolioMonLogo = () => {
               PortfolioMon
             </motion.div>
             <div
-              className="relative font-orbiter text-2xl font-black uppercase tracking-wide text-slate-100"
+              className="relative font-orbiter text-2xl font-black uppercase tracking-wide text-slate-900 dark:text-slate-100"
               style={{ textShadow: "1px 1px 4px rgba(0,0,0,0.5)" }}
             >
               PortfolioMon
@@ -311,7 +276,7 @@ const PortfolioMonLogo = () => {
           <div className="relative -mt-1 w-[150px]">
             <motion.div
               variants={showdownPlateVariants}
-              className="absolute top-0 left-0 h-full w-full bg-slate-700"
+              className="absolute top-0 left-0 h-full w-full bg-slate-300 dark:bg-slate-700"
               style={{
                 clipPath: "polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%)",
               }}
@@ -323,10 +288,10 @@ const PortfolioMonLogo = () => {
               }}
             >
               <div className="justify-left flex items-center gap-2 truncate px-2 py-0.5">
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-slate-900">
+                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-900">
                   <Shield className="h-3 w-3 text-red-400" />
                 </div>
-                <div className="font-orbiter text-xs font-extrabold tracking-[0.2em] text-white">
+                <div className="font-orbiter text-xs font-extrabold tracking-[0.2em] text-black dark:text-white">
                   SHOWDOWN
                 </div>
               </div>
@@ -357,7 +322,7 @@ const LogoContainer = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <motion.div
-      className="relative flex w-full min-w-fit items-center overflow-hidden bg-slate-800/90 py-3 pl-4 pr-12 sm:pl-6 lg:pl-8"
+      className="relative flex w-full min-w-fit items-center overflow-hidden bg-white/90 py-3 pl-4 pr-12 dark:bg-slate-800/90 sm:pl-6 lg:pl-8"
       style={{
         clipPath: "polygon(0 0, 100% 0, calc(100% - 40px) 100%, 0 100%)",
       }}
@@ -394,6 +359,60 @@ const LogoContainer = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+const AngledLines = () => {
+  const lineData = [
+    { width: "4px", color: "bg-cyan-300/70" },
+    { width: "3px", color: "bg-cyan-300/50" },
+    { width: "2px", color: "bg-yellow-300/40" },
+    { width: "1px", color: "bg-cyan-300/30" },
+  ];
+
+  const slantAngle = -29;
+
+  const groupVariants = {
+    rest: {
+      x: "-80%",
+      skewX: slantAngle,
+      opacity: 0.5,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    hover: {
+      x: "-30%",
+      skewX: slantAngle,
+      opacity: 1,
+      transition: {
+        duration: 0.4,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  return (
+    <div
+      className="pointer-events-none absolute left-full top-0 h-full w-20"
+      aria-hidden="true"
+    >
+      <motion.div
+        className="flex h-full w-full origin-left items-center gap-2 pl-3"
+        variants={groupVariants}
+      >
+        {lineData.map((line, index) => (
+          <div
+            key={index}
+            className={`h-full ${line.color}`}
+            style={{
+              width: line.width,
+            }}
+          />
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
 const Navbar = (props: {
   menuHandler: () => void;
   fontInitializer: () => void;
@@ -414,7 +433,6 @@ const Navbar = (props: {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showBgPreview, setShowBgPreview] = useState(false);
 
-  // Assuming 5 backgrounds, named background-1.jpg to background-5.jpg
   const nextBgIndex = (background % 5) + 1;
 
   useEffect(() => setMounted(true), []);
@@ -441,30 +459,73 @@ const Navbar = (props: {
 
   return (
     <motion.nav
-      className="relative top-0 z-50 border-b border-cyan-400/20 bg-slate-900 backdrop-blur-md"
+      className="relative top-0 z-50 border-b border-slate-200 bg-slate-100 backdrop-blur-md dark:border-cyan-400/20 dark:bg-slate-900"
       initial="rest"
       whileHover="hover"
       animate="rest"
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-slate-800/50 to-slate-900/50"
+          className="absolute inset-0 bg-gradient-to-b from-slate-200/50 to-slate-100/50 dark:from-slate-800/50 dark:to-slate-900/50"
           variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
           transition={{ duration: 0.3 }}
         />
         <motion.div
-          className="absolute inset-0"
+          className="absolute inset-0 bg-[length:20px_20px]"
           style={{
-            backgroundSize: "20px 20px",
+            backgroundImage:
+              "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)",
+          }}
+          variants={{
+            rest: { opacity: 0.05, x: -20 },
+            hover: { opacity: 0.2, x: 0 },
+          }}
+          transition={{ duration: 0.5 }}
+        />
+        <div className="absolute inset-0 bg-[length:20px_20px] dark:bg-transparent" />
+        <motion.div
+          className="absolute inset-0 hidden"
+          style={{
             backgroundImage:
               "linear-gradient(to right, #083344 1px, transparent 1px), linear-gradient(to bottom, #083344 1px, transparent 1px)",
           }}
           variants={{
             rest: { opacity: 0, x: -20 },
-            hover: { opacity: 0.15, x: 0 },
+            hover: { opacity: 0.4, x: 0 },
           }}
           transition={{ duration: 0.5 }}
         />
+        <div className="dark:hidden">
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundSize: "20px 20px",
+              backgroundImage:
+                "linear-gradient(to right, #e2e8f0 1px, transparent 1px), linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)",
+            }}
+            variants={{
+              rest: { opacity: 0, x: -20 },
+              hover: { opacity: 1, x: 0 },
+            }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+        <div className="hidden dark:block">
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundSize: "20px 20px",
+              backgroundImage:
+                "linear-gradient(to right, #083344 1px, transparent 1px), linear-gradient(to bottom, #083344 1px, transparent 1px)",
+            }}
+            variants={{
+              rest: { opacity: 0, x: -20 },
+              hover: { opacity: 0.4, x: 0 },
+            }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+
         <div className="relative h-full w-full opacity-40">
           <div
             className="absolute inset-0 bg-cyan-300/50"
@@ -522,21 +583,26 @@ const Navbar = (props: {
       </div>
 
       <div className="relative z-10 flex h-full w-full items-stretch justify-start">
-        <button onClick={handleReset} aria-label="Home" className="w-1/3">
+        <button
+          onClick={handleReset}
+          aria-label="Home"
+          className="relative w-1/3"
+        >
           <LogoContainer>
             <PortfolioMonLogo />
           </LogoContainer>
+          <AngledLines />
         </button>
 
         <div className="ml-auto flex items-center gap-3 pr-4 sm:pr-6 lg:pr-8">
           <div className="hidden items-center gap-3 sm:flex">
             <ClippedGroupContainer>
               <div
-                className="relative h-8 w-8 bg-cyan-400/20 p-px"
+                className="relative h-8 w-8 bg-slate-200 p-px dark:bg-cyan-400/20"
                 style={{ clipPath: octagonalClipPath }}
               >
                 <div
-                  className="relative h-full w-full bg-slate-800"
+                  className="relative h-full w-full bg-slate-100 dark:bg-slate-800"
                   style={{ clipPath: octagonalClipPath }}
                 >
                   {session?.user?.image ? (
@@ -547,7 +613,7 @@ const Navbar = (props: {
                       className="object-cover"
                     />
                   ) : (
-                    <UserCircle className="h-full w-full text-slate-600" />
+                    <UserCircle className="h-full w-full text-slate-400 dark:text-slate-600" />
                   )}
                 </div>
               </div>
@@ -656,7 +722,7 @@ const Navbar = (props: {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-cyan-400/20 bg-slate-900/95 sm:hidden"
+            className="overflow-hidden border-t border-slate-200 bg-slate-100/95 dark:border-cyan-400/20 dark:bg-slate-900/95 sm:hidden"
           >
             <div className="space-y-3 p-4">
               <ClippedGroupContainer className="w-full">
@@ -674,10 +740,10 @@ const Navbar = (props: {
                           className="object-cover"
                         />
                       ) : (
-                        <UserCircle className="h-full w-full text-slate-600" />
+                        <UserCircle className="h-full w-full text-slate-400 dark:text-slate-600" />
                       )}
                     </div>
-                    <span className="text-sm font-medium text-slate-300">
+                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                       {session?.user?.name ?? "Guest"}
                     </span>
                   </div>

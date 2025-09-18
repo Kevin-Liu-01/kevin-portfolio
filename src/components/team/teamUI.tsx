@@ -60,17 +60,17 @@ const BattleScannerRingHalf = ({
   />
 );
 
-// --- DYNAMIC BACKGROUND & DECORATIVE ELEMENTS (Unchanged) ---
+// --- DYNAMIC BACKGROUND & DECORATIVE ELEMENTS (Updated for Dark Mode) ---
 export const AnimatedBackground = () => (
-  <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-slate-900">
-    <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+  <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-slate-100 dark:bg-slate-900">
+    <div className="absolute inset-0 bg-[linear-gradient(to_right,#d1d5db_1px,transparent_1px),linear-gradient(to_bottom,#d1d5db_1px,transparent_1px)] bg-[size:14px_24px] dark:bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)]"></div>
     <motion.div
       className="absolute inset-0"
       animate={{
         background: [
-          "radial-gradient(circle at 25% 25%, rgba(0, 120, 255, 0.2), transparent 40%)",
-          "radial-gradient(circle at 20% 30%, rgba(0, 120, 255, 0.25), transparent 40%)",
-          "radial-gradient(circle at 25% 25%, rgba(0, 120, 255, 0.2), transparent 40%)",
+          "radial-gradient(circle at 25% 25%, rgba(0, 120, 255, 0.1), transparent 40%)",
+          "radial-gradient(circle at 20% 30%, rgba(0, 120, 255, 0.15), transparent 40%)",
+          "radial-gradient(circle at 25% 25%, rgba(0, 120, 255, 0.1), transparent 40%)",
         ],
       }}
       transition={{ duration: 5, repeat: Infinity, repeatType: "mirror" }}
@@ -78,7 +78,7 @@ export const AnimatedBackground = () => (
   </div>
 );
 
-// --- NEW & UPGRADED HELPER COMPONENTS ---
+// --- NEW & UPGRADED HELPER COMPONENTS (Updated for Dark Mode) ---
 
 const UpgradedClippedContainer = ({
   children,
@@ -95,7 +95,7 @@ const UpgradedClippedContainer = ({
 }) => (
   <motion.div
     variants={variants}
-    className={`relative overflow-hidden bg-cyan-400/20 p-px ${className}`}
+    className={`relative overflow-hidden bg-slate-300/50 p-px dark:bg-cyan-400/20 ${className}`}
     style={{ clipPath }}
     initial="rest"
     whileHover="hover"
@@ -103,7 +103,7 @@ const UpgradedClippedContainer = ({
   >
     {showSheen && (
       <motion.div
-        className="absolute top-0 left-0 h-full w-12 bg-white/20 blur-md"
+        className="absolute top-0 left-0 h-full w-12 bg-black/10 blur-md dark:bg-white/20"
         variants={{
           rest: { x: "-150%", skewX: -20 },
           hover: {
@@ -115,7 +115,7 @@ const UpgradedClippedContainer = ({
       />
     )}
     <div
-      className="relative h-full w-full bg-slate-800/80 backdrop-blur-sm"
+      className="relative h-full w-full bg-slate-100/80 backdrop-blur-sm dark:bg-slate-800/80"
       style={{ clipPath }}
     >
       {children}
@@ -125,18 +125,18 @@ const UpgradedClippedContainer = ({
 
 const SectionHeader = ({ children }: { children: React.ReactNode }) => (
   <div
-    className="relative -ml-3 mb-2 w-fit bg-slate-700 p-px"
+    className="relative -ml-3 mb-2 w-fit bg-slate-300 p-px dark:bg-slate-700"
     style={{
       clipPath: "polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%)",
     }}
   >
     <div
-      className="bg-cyan-900/50 px-3 py-0.5"
+      className="bg-slate-200 px-3 py-0.5 dark:bg-cyan-900/50"
       style={{
         clipPath: "polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%)",
       }}
     >
-      <h3 className="flex-shrink-0 text-[10px] font-bold uppercase tracking-[0.15em] text-cyan-300">
+      <h3 className="flex-shrink-0 text-[10px] font-bold uppercase tracking-[0.15em] text-cyan-700 dark:text-cyan-300">
         {children}
       </h3>
     </div>
@@ -175,7 +175,7 @@ const ActionButton = ({
   </motion.button>
 );
 
-// --- (Unchanged Helper Components: TypeBadge, StatBar, etc.) ---
+// --- (Unchanged Helper Components: TypeBadge, etc.) ---
 const TypeBadge = ({
   type,
   size = "sm",
@@ -197,6 +197,8 @@ const TypeBadge = ({
     </span>
   );
 };
+
+// --- (Updated Helper Components) ---
 const StatBar = ({
   label,
   value,
@@ -207,11 +209,11 @@ const StatBar = ({
   maxValue?: number;
 }) => (
   <div className="grid grid-cols-6 items-center gap-2">
-    <span className="col-span-1 font-mono text-[10px] uppercase text-slate-400">
+    <span className="col-span-1 font-mono text-[10px] uppercase text-slate-500 dark:text-slate-400">
       {label}
     </span>
     <div
-      className="col-span-4 h-1.5 bg-slate-900/70 p-0.5"
+      className="col-span-4 h-1.5 bg-slate-300 p-0.5 dark:bg-slate-900/70"
       style={{
         clipPath:
           "polygon(0 0, 100% 0, 100% 100%, 3px 100%, 0 calc(100% - 3px))",
@@ -228,7 +230,7 @@ const StatBar = ({
         }}
       />
     </div>
-    <span className="col-span-1 font-mono text-xs font-bold text-white">
+    <span className="col-span-1 font-mono text-xs font-bold text-slate-900 dark:text-white">
       {value}
     </span>
   </div>
@@ -249,16 +251,15 @@ const StatusEffectIcon = ({ move }: { move: Move }) => {
     <div className="group relative flex items-center">
       {icon}
       <div
-        className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 bg-slate-900 p-0.5 opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
+        className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded-sm border border-slate-300 bg-white p-0.5 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 dark:border-cyan-400/50 dark:bg-slate-900"
         style={{
           clipPath: "polygon(0 5px, 5px 0, 100% 0, 100% 100%, 0 100%)",
         }}
       >
         <div
-          className="bg-slate-900 px-2 py-1 text-[10px] text-slate-300"
+          className="bg-white px-2 py-1 text-[10px] text-slate-700 dark:bg-slate-900 dark:text-slate-300"
           style={{
             clipPath: "polygon(0 5px, 5px 0, 100% 0, 100% 100%, 0 100%)",
-            border: "1px solid var(--tw-color-cyan-400)",
           }}
         >
           {move.effect.chance * 100}% chance to {move.effect.type} the enemy
@@ -374,23 +375,23 @@ const MoveStatChip = ({
   value: string | number;
 }) => (
   <div
-    className="bg-slate-900/70 p-px"
+    className="bg-slate-300/70 p-px dark:bg-slate-900/70"
     style={{
       clipPath: "polygon(0 0, 100% 0, 100% 100%, 6px 100%, 0 calc(100% - 6px))",
     }}
   >
     <div
-      className="bg-slate-800/80 px-1.5 py-0.5"
+      className="bg-slate-200/80 px-1.5 py-0.5 dark:bg-slate-800/80"
       style={{
         clipPath:
           "polygon(0 0, 100% 0, 100% 100%, 6px 100%, 0 calc(100% - 6px))",
       }}
     >
       <div className="flex items-baseline justify-between gap-1">
-        <span className="font-mono text-[8px] font-bold text-cyan-400/80">
+        <span className="font-mono text-[8px] font-bold text-cyan-600/80 dark:text-cyan-400/80">
           {label}
         </span>
-        <span className="font-mono text-[10px] font-semibold text-white">
+        <span className="font-mono text-[10px] font-semibold text-slate-900 dark:text-white">
           {value}
         </span>
       </div>
@@ -398,7 +399,7 @@ const MoveStatChip = ({
   </div>
 );
 
-// --- POKEDEX & DETAIL VIEW (Unchanged from previous version) ---
+// --- POKEDEX & DETAIL VIEW ---
 const MonDetailView = ({
   mon,
   onTeamSelect,
@@ -459,14 +460,14 @@ const MonDetailView = ({
       exit={{ opacity: 0 }}
       className="relative flex h-full flex-col gap-3 p-3"
     >
-      <div className="absolute inset-0 bg-slate-900/40" />
+      <div className="absolute inset-0 bg-slate-200/40 dark:bg-slate-900/40" />
       <motion.div
         variants={itemVariants}
         className="relative flex h-64 flex-shrink-0 items-center justify-center overflow-hidden bg-cyan-400/20 p-px"
         style={{ clipPath: mainPanelClipPath }}
       >
         <div
-          className="relative h-full w-full bg-slate-900/50 p-4"
+          className="relative h-full w-full bg-white/50 p-4 dark:bg-slate-900/50"
           style={{ clipPath: mainPanelClipPath }}
         >
           <motion.div
@@ -482,7 +483,7 @@ const MonDetailView = ({
           />
           <DetailViewCornerBracket className="top-1 left-1" />
           <DetailViewCornerBracket className="bottom-1 right-1 scale-x-[-1] scale-y-[-1]" />
-          <div className="absolute -bottom-4 right-0 font-mono text-[10rem] font-black leading-none text-slate-700/60">
+          <div className="absolute -bottom-4 right-0 font-mono text-[10rem] font-black leading-none text-slate-300/60 dark:text-slate-700/60">
             {String(mon.id).padStart(3, "0")}
           </div>
           <div className="absolute left-0 h-full w-full">
@@ -584,10 +585,10 @@ const MonDetailView = ({
             </div>
           </div>
           <div className="absolute top-3 left-4 z-40">
-            <h2 className="text-2xl font-black tracking-tighter text-white [text-shadow:2px_2px_4px_rgba(0,0,0,0.7)]">
+            <h2 className="text-2xl font-black tracking-tighter text-cyan-500 [text-shadow:2px_2px_4px_rgba(255,255,255,0.3)] dark:text-white dark:[text-shadow:2px_2px_4px_rgba(0,0,0,0.7)]">
               {mon.name}
             </h2>
-            <span className="font-mono text-base font-bold text-slate-400 [text-shadow:1px_1px_2px_rgba(0,0,0,0.5)]">
+            <span className="font-mono text-base font-bold text-slate-600 [text-shadow:1px_1px_2px_rgba(255,255,255,0.2)] dark:text-slate-400 dark:[text-shadow:1px_1px_2px_rgba(0,0,0,0.5)]">
               No.{String(mon.id).padStart(3, "0")}
             </span>
           </div>
@@ -605,10 +606,10 @@ const MonDetailView = ({
           >
             <div className="p-2.5">
               <SectionHeader>Data Entry</SectionHeader>
-              <p className="text-[11px] leading-relaxed text-slate-300">
+              <p className="text-[11px] leading-relaxed text-slate-700 dark:text-slate-300">
                 {mon.description}
               </p>
-              <div className="mt-2 grid grid-cols-2 gap-2 border-t border-slate-700 pt-2">
+              <div className="mt-2 grid grid-cols-2 gap-2 border-t border-slate-300 pt-2 dark:border-slate-700">
                 <Link href={mon.url} passHref legacyBehavior>
                   <ActionButton
                     as="a"
@@ -708,7 +709,7 @@ const MonDetailView = ({
             <div className="flex h-full flex-col p-2.5">
               <SectionHeader>Moveset</SectionHeader>
               <div className="flex flex-grow flex-col gap-2">
-                {mon.moves.map((move: Move) => {
+                {mon.moves.map((move) => {
                   const bgClass = typeStyles[move.type].bg || "bg-slate-700";
                   const clipPath =
                     "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)";
@@ -818,7 +819,7 @@ export const PulsingCircuit = () => {
         height="100%"
         preserveAspectRatio="none"
         viewBox="0 0 1440 128"
-        className="text-cyan-400"
+        className="text-cyan-500 dark:text-cyan-400"
       >
         <SvgLine
           path="M-10 110 h220 l20-20 h150 l20 20 h200 l20-20 h100 v-30 h120 l20 20 h200"
@@ -881,7 +882,7 @@ const workExperience = [
   },
   {
     role: "Software Development Engineer Intern – FBA Inventory",
-    company: "Amazon Web Services",
+    company: "Amazon",
     date: "May 2025 - Aug 2025",
     description:
       "Built internal APIs for FBA inventory workflows, improving response time by 37% and refactoring a reconciliation pipeline to reduce technical debt.",
@@ -932,22 +933,27 @@ const TimelineItem = ({
 }) => (
   <div className="relative pl-6 pb-4">
     {!isLast && (
-      <div className="absolute top-2 left-[5px] h-full w-0.5 bg-cyan-400/20"></div>
+      <div className="absolute top-2 left-[5px] h-full w-0.5 bg-slate-300 dark:bg-cyan-400/20"></div>
     )}
-    <div className="absolute top-2 left-0 h-3 w-3 rounded-full border-2 border-cyan-400 bg-slate-800"></div>
-    <p className="text-sm font-bold text-white">{role}</p>
-    <p className="text-xs font-semibold text-cyan-400">{company}</p>
-    <p className="mt-0.5 font-mono text-[10px] text-slate-400">{date}</p>
-    <p className="mt-1.5 text-xs text-slate-300">{description}</p>
+    <div className="absolute top-2 left-0 h-3 w-3 rounded-full border-2 border-cyan-500 bg-white dark:border-cyan-400 dark:bg-slate-800"></div>
+    <p className="text-sm font-bold text-slate-900 dark:text-white">{role}</p>
+    <p className="text-xs font-semibold text-cyan-600 dark:text-cyan-400">
+      {company}
+    </p>
+    <p className="mt-0.5 font-mono text-[10px] text-slate-500 dark:text-slate-400">
+      {date}
+    </p>
+    <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-300">
+      {description}
+    </p>
   </div>
 );
 
 // --- NEW HELPER COMPONENTS FOR DEPLOY TEAM SECTION ---
 
-// Animated reticule for team slots
 const TargetingReticule = () => (
   <motion.svg
-    className="pointer-events-none absolute inset-0 h-full w-full text-cyan-400/50"
+    className="pointer-events-none absolute inset-0 h-full w-full text-cyan-500/50 dark:text-cyan-400/50"
     viewBox="0 0 100 100"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -970,7 +976,6 @@ const TargetingReticule = () => (
   </motion.svg>
 );
 
-// New energy line with flow animation
 const EnergyFlowLine = ({
   x1,
   y1,
@@ -1030,7 +1035,7 @@ const EnergyFlowLine = ({
   );
 };
 
-// --- Trainer Info Panel (Significantly Updated) ---
+// --- Trainer Info Panel ---
 const TrainerInfoPanel = ({
   playerTeam,
   onEnter,
@@ -1156,14 +1161,14 @@ const TrainerInfoPanel = ({
         mouseX.set(0);
         mouseY.set(0);
       }}
-      className="relative z-20 col-span-12 flex h-full flex-col overflow-visible border-r border-cyan-400/20 bg-slate-900 [perspective:1000px] lg:col-span-3"
+      className="relative z-20 col-span-12 flex h-full flex-col overflow-visible border-r border-slate-300 bg-white [perspective:1000px] dark:border-cyan-400/20 dark:bg-slate-900 lg:col-span-3"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
-      <div className="relative z-10 flex h-full flex-col gap-4 overflow-hidden p-4 pb-4">
+      <div className="relative z-30 flex h-full flex-col gap-4 overflow-hidden p-4 pb-4">
         <div className="pointer-events-none absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,220,255,0.15),transparent_40%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,220,255,0.05),transparent_40%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(0,220,255,0.15),transparent_40%)]" />
           <AnimatedCircuitry />
         </div>
         <div className="relative z-10 flex flex-grow flex-col gap-4">
@@ -1174,10 +1179,10 @@ const TrainerInfoPanel = ({
               transformStyle: "preserve-3d",
               clipPath: imagePanelClipPath,
             }}
-            className="shadow-slate-950/40 relative h-full w-full bg-cyan-400/20 p-px shadow-xl"
+            className="dark:shadow-slate-950/40 relative h-full w-full bg-cyan-400/20 p-px shadow-xl shadow-slate-300/40"
           >
             <div
-              className="relative h-full w-full bg-slate-800/50 p-4"
+              className="relative h-full w-full bg-slate-100/50 p-4 dark:bg-slate-800/50"
               style={{ clipPath: imagePanelClipPath }}
             >
               <div
@@ -1190,22 +1195,22 @@ const TrainerInfoPanel = ({
                   alt="Kevin Liu"
                   className="scale-110 object-cover object-top"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent dark:from-slate-900/70" />
               </div>
               <div className="relative flex h-full flex-col justify-between [transform:translateZ(20px)]">
                 <div>
-                  <p className="font-mono text-xs text-slate-400">
-                    ID: KL-250916
+                  <p className="font-mono text-xs text-cyan-600 [text-shadow:1px_1px_3px_rgba(255,255,255,0.5)] dark:text-cyan-300 dark:[text-shadow:1px_1px_3px_rgba(0,0,0,0.5)]">
+                    PRINCETON
                   </p>
-                  <p className="font-mono text-xs text-slate-400">
-                    CLASS: DEV_MASTER
+                  <p className="font-mono text-xs text-cyan-600 [text-shadow:1px_1px_3px_rgba(255,255,255,0.5)] dark:text-cyan-300 dark:[text-shadow:1px_1px_3px_rgba(0,0,0,0.5)]">
+                    5/27/2024
                   </p>
                 </div>
                 <div>
-                  <p className="text-2xl font-black tracking-tighter text-white [text-shadow:1px_1px_3px_rgba(0,0,0,0.5)]">
+                  <p className="text-2xl font-black tracking-tighter text-black [text-shadow:1px_1px_3px_rgba(255,255,255,0.5)] dark:text-white dark:[text-shadow:1px_1px_3px_rgba(0,0,0,0.5)]">
                     KEVIN LIU
                   </p>
-                  <p className="text-xs font-bold text-cyan-400">
+                  <p className="text-xs font-bold text-cyan-700 dark:text-cyan-400">
                     Full-Stack & AI Developer
                   </p>
                 </div>
@@ -1222,13 +1227,13 @@ const TrainerInfoPanel = ({
                   href="https://www.linkedin.com/in/kevin-liu-2495b6205/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 transition-colors hover:text-cyan-400"
+                  className="text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
                 >
                   <Image
                     width={20}
                     height={20}
                     src="/images/linkedin.svg"
-                    className="svgfill h-5 w-5"
+                    className="h-5 w-5 dark:invert"
                     alt="Linkedin"
                   />
                 </Link>
@@ -1236,19 +1241,19 @@ const TrainerInfoPanel = ({
                   href="https://github.com/Kevin-Liu-01"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 transition-colors hover:text-cyan-400"
+                  className="text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
                 >
                   <Image
                     width={20}
                     height={20}
                     src="/images/github.svg"
-                    className="svgfill h-5 w-5"
+                    className="h-5 w-5 dark:invert"
                     alt="GitHub"
                   />
                 </Link>
                 <Link
                   href="mailto:k.bowen.liu@gmail.com"
-                  className="text-slate-400 transition-colors hover:text-cyan-400"
+                  className="text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
                 >
                   <MailIcon className="h-5 w-5" />
                 </Link>
@@ -1256,7 +1261,7 @@ const TrainerInfoPanel = ({
                   href="https://devpost.com/Kevin-Liu-01"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 transition-colors hover:text-cyan-400"
+                  className="text-slate-500 transition-colors hover:text-cyan-600 dark:text-slate-400 dark:hover:text-cyan-400"
                 >
                   <Image
                     width={20}
@@ -1270,11 +1275,11 @@ const TrainerInfoPanel = ({
             </UpgradedClippedContainer>
             <UpgradedClippedContainer clipPath="polygon(0px 0px, 100% 0px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0px 100%)">
               <div className="space-y-2 p-3">
-                <div className="flex items-center gap-2 text-xs text-slate-300">
-                  <BrainCircuit className="h-4 w-4 flex-shrink-0 text-cyan-400" />
+                <div className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+                  <BrainCircuit className="h-4 w-4 flex-shrink-0 text-cyan-600 dark:text-cyan-400" />
                   <span>{"Princeton University '28, B.S.E. in CS"}</span>
                 </div>
-                <p className="text-[11px] leading-relaxed text-slate-400">
+                <p className="text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
                   I build digital experiences at the intersection of robust
                   engineering and intelligent design. This portfolio game is a
                   showcase of my passion. Have fun!
@@ -1353,7 +1358,7 @@ const TrainerInfoPanel = ({
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
-                            className="h-full w-full rounded-full border-2 border-slate-700 bg-slate-800/50"
+                            className="h-full w-full rounded-full border-2 border-slate-300 bg-slate-200/50 dark:border-slate-700 dark:bg-slate-800/50"
                           />
                         )}
                       </AnimatePresence>
@@ -1406,10 +1411,10 @@ const TrainerInfoPanel = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute top-0 left-full z-20 h-full w-80 overflow-hidden border-r border-cyan-400/20 bg-slate-900"
+            className="absolute top-0 left-full z-20 h-full w-80 overflow-hidden border-r border-slate-300 bg-white dark:border-cyan-400/20 dark:bg-slate-900"
           >
             <div className="pointer-events-none absolute inset-0 z-0">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,220,255,0.15),transparent_40%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,220,255,0.05),transparent_40%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(0,220,255,0.15),transparent_40%)]" />
               <AnimatedCircuitry />
             </div>
             <div className="custom-scrollbar relative z-10 flex h-full flex-col gap-6 overflow-y-auto p-4">
@@ -1425,6 +1430,25 @@ const TrainerInfoPanel = ({
                   ))}
                 </div>
               </div>
+              <div>
+                <SectionHeader>Education</SectionHeader>
+                <div className="mt-2 flex flex-col">
+                  <TimelineItem
+                    role="Undergraduate Student"
+                    company="Princeton University"
+                    date="Expected Graduation: 2028"
+                    description="Pursuing a B.S.E. in Computer Science"
+                    isLast={false}
+                  />
+                  <TimelineItem
+                    role="Student"
+                    company="High Technology High School"
+                    date="Graduated "
+                    description="Graduated with Honors"
+                    isLast={true}
+                  />
+                </div>
+              </div>
               <div className="mt-auto">
                 <SectionHeader>Documents</SectionHeader>
                 <a
@@ -1437,7 +1461,7 @@ const TrainerInfoPanel = ({
                     className="mt-2"
                     clipPath="polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px)"
                   >
-                    <div className="flex w-full items-center justify-center gap-3 px-4 py-2 text-sm font-bold text-cyan-400 transition-colors group-hover:bg-cyan-900/40 group-hover:text-white">
+                    <div className="flex w-full items-center justify-center gap-3 px-4 py-2 text-sm font-bold text-cyan-600 transition-colors group-hover:bg-cyan-100 group-hover:text-cyan-800 dark:text-cyan-400 dark:group-hover:bg-cyan-900/40 dark:group-hover:text-white">
                       <FileText className="h-4 w-4" />
                       View Full CV / Resume
                     </div>
@@ -1484,7 +1508,7 @@ const MonGridItem = ({
     >
       <button
         onClick={onClick}
-        className="h-full w-full bg-slate-800/80 p-2"
+        className="h-full w-full bg-slate-200/80 p-2 dark:bg-slate-800/80"
         style={{
           clipPath:
             "polygon(0 12px, 12px 0, 100% 0, 100% 100%, 12px 100%, 0 100%)",
@@ -1493,7 +1517,7 @@ const MonGridItem = ({
         {isOnTeam && (
           <CheckCircle2 className="absolute top-2 left-2 z-20 h-4 w-4 text-green-400 drop-shadow-[0_0_2px_currentColor]" />
         )}
-        <div className="pointer-events-none absolute -bottom-2 -right-2 z-0 font-mono text-5xl font-black text-white/5">
+        <div className="pointer-events-none absolute -bottom-2 -right-2 z-0 font-mono text-5xl font-black text-slate-900/5 dark:text-white/5">
           {String(mon.id).padStart(3, "0")}
         </div>
         <div className="relative z-10 flex items-center gap-3">
@@ -1506,14 +1530,16 @@ const MonGridItem = ({
             />
           </div>
           <div className="text-left">
-            <p className="text-xs font-bold text-slate-100">{mon.name}</p>
+            <p className="text-xs font-bold text-slate-900 dark:text-slate-100">
+              {mon.name}
+            </p>
             <div className="mt-1 flex gap-1">
               <TypeBadge type={mon.type1} size="xs" />
               {mon.type2 && <TypeBadge type={mon.type2} size="xs" />}
             </div>
           </div>
         </div>
-        <span className="absolute top-1 right-2 z-10 font-mono text-xs font-bold text-slate-500">
+        <span className="absolute top-1 right-2 z-10 font-mono text-xs font-bold text-slate-400 dark:text-slate-500">
           No.{String(mon.id).padStart(3, "0")}
         </span>
       </button>
@@ -1541,7 +1567,7 @@ const MonGridItem = ({
   );
 };
 
-// --- PRIMARY UI (Unchanged) ---
+// --- PRIMARY UI ---
 export const TeamSelectScreen = () => {
   const { playerTeam, handleTeamSelect, handleConfirmTeam } = useGame();
   const [selectedId, setSelectedId] = useState<number | null>(1);
@@ -1570,7 +1596,7 @@ export const TeamSelectScreen = () => {
   );
 
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden bg-slate-900 text-white">
+    <div className="relative flex h-full w-full flex-col overflow-hidden bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-white">
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;
@@ -1579,12 +1605,19 @@ export const TeamSelectScreen = () => {
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background-color: #0891b2;
+          background-color: #cbd5e1; /* slate-300 */
           border-radius: 20px;
-          border: 2px solid #0f172a;
+          border: 2px solid #f1f5f9; /* slate-100 */
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background-color: #06b6d4;
+          background-color: #94a3b8; /* slate-400 */
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: #0891b2; /* cyan-600 */
+          border: 2px solid #0f172a; /* slate-900 */
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background-color: #06b6d4; /* cyan-500 */
         }
       `}</style>
       <AnimatedBackground />
@@ -1596,7 +1629,7 @@ export const TeamSelectScreen = () => {
           onRandomTeam={handleRandomTeam}
         />
         <main className="relative col-span-12 flex min-h-0 flex-col lg:col-span-9 lg:grid lg:grid-cols-9">
-          <aside className="flex min-h-0 flex-col border-r border-cyan-400/20 lg:col-span-4">
+          <aside className="flex min-h-0 flex-col border-r border-slate-300 dark:border-cyan-400/20 lg:col-span-4">
             <div className="flex-shrink-0 p-4">
               <div
                 className="group relative bg-cyan-400/20 p-px transition-colors duration-300 focus-within:bg-cyan-400 focus-within:shadow-[0_0_15px_theme(colors.cyan.400)]"
@@ -1606,19 +1639,19 @@ export const TeamSelectScreen = () => {
                 }}
               >
                 <div
-                  className="relative bg-slate-800/80"
+                  className="relative bg-white/80 dark:bg-slate-800/80"
                   style={{
                     clipPath:
                       "polygon(0 10px, 10px 0, 100% 0, 100% 100%, 0 100%)",
                   }}
                 >
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 transition-colors group-focus-within:text-cyan-400" />
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-cyan-600 dark:text-slate-500 dark:group-focus-within:text-cyan-400" />
                   <input
                     type="text"
                     placeholder="Search Projects..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full bg-transparent py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none"
+                    className="w-full bg-transparent py-2 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none dark:text-white dark:placeholder-slate-500"
                   />
                 </div>
               </div>
@@ -1656,7 +1689,7 @@ export const TeamSelectScreen = () => {
                 />
               ) : (
                 <div className="flex h-full items-center justify-center p-4">
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-slate-400 dark:text-slate-500">
                     Select a project to view details.
                   </p>
                 </div>

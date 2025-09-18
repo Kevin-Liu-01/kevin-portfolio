@@ -8,7 +8,7 @@ export const TeamPreviewScreen = () => {
   const { playerTeamState, cpuTeamState, startBattle } = useGame();
 
   return (
-    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-slate-900">
+    <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-white">
       <AnimatedBackground />
       <HighTechEffects />
       <PulsingCircuit />
@@ -19,10 +19,10 @@ export const TeamPreviewScreen = () => {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <h1 className="text-5xl font-black tracking-tighter text-white drop-shadow-lg md:text-6xl">
+          <h1 className="text-5xl font-black tracking-tighter text-slate-900 drop-shadow-lg dark:text-white md:text-6xl">
             BATTLE START!
           </h1>
-          <p className="mt-2 text-lg text-slate-300">
+          <p className="mt-2 text-lg text-slate-600 dark:text-slate-300">
             Your team is ready for the challenge.
           </p>
         </motion.div>
@@ -33,7 +33,7 @@ export const TeamPreviewScreen = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, staggerChildren: 0.2 }}
           >
-            <h2 className="text-center text-2xl font-bold text-cyan-400">
+            <h2 className="text-center text-2xl font-bold text-cyan-600 dark:text-cyan-400">
               YOUR TEAM
             </h2>
             {playerTeamState.map((p) => (
@@ -45,21 +45,21 @@ export const TeamPreviewScreen = () => {
                 }}
                 initial="hidden"
                 animate="visible"
-                className="bg-slate-700 p-px shadow-lg backdrop-blur-sm"
+                className="bg-slate-300 p-px shadow-lg backdrop-blur-sm dark:bg-slate-700"
                 style={{
                   clipPath:
                     "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)",
                 }}
               >
                 <div
-                  className="flex h-full w-full items-center gap-4 bg-slate-800/80 p-3"
+                  className="flex h-full w-full items-center gap-4 bg-slate-200/80 p-3 dark:bg-slate-800/80"
                   style={{
                     clipPath:
                       "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)",
                   }}
                 >
                   <div
-                    className="relative h-16 w-16 flex-shrink-0 bg-slate-900/50 p-1"
+                    className="relative h-16 w-16 flex-shrink-0 bg-slate-300/50 p-1 dark:bg-slate-900/50"
                     style={{
                       clipPath:
                         "polygon(0 10px, 10px 0, 100% 0, 100% 100%, 0 100%)",
@@ -73,7 +73,9 @@ export const TeamPreviewScreen = () => {
                     />
                   </div>
                   <div>
-                    <p className="text-base font-bold">{p.name}</p>
+                    <p className="text-base font-bold text-slate-800 dark:text-white">
+                      {p.name}
+                    </p>
                     <div className="mt-1 flex gap-1">
                       <TypeBadge type={p.type1} size="xs" />
                       {p.type2 && <TypeBadge type={p.type2} size="xs" />}
@@ -86,7 +88,7 @@ export const TeamPreviewScreen = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1, transition: { delay: 0.6 } }}
-            className="mx-12 text-6xl font-black text-slate-600"
+            className="mx-12 text-6xl font-black text-slate-400 dark:text-slate-600"
           >
             VS
           </motion.div>
@@ -108,28 +110,30 @@ export const TeamPreviewScreen = () => {
                 }}
                 initial="hidden"
                 animate="visible"
-                className="bg-slate-700 p-px text-right shadow-lg backdrop-blur-sm"
+                className="bg-slate-300 p-px text-right shadow-lg backdrop-blur-sm dark:bg-slate-700"
                 style={{
                   clipPath:
                     "polygon(16px 0, 100% 0, 100% 100%, 0 100%, 0 16px)",
                 }}
               >
                 <div
-                  className="flex h-full w-full items-center justify-end gap-4 bg-slate-800/80 p-3"
+                  className="flex h-full w-full items-center justify-end gap-4 bg-slate-200/80 p-3 dark:bg-slate-800/80"
                   style={{
                     clipPath:
                       "polygon(16px 0, 100% 0, 100% 100%, 0 100%, 0 16px)",
                   }}
                 >
                   <div>
-                    <p className="text-base font-bold">{p.name}</p>
+                    <p className="text-base font-bold text-slate-800 dark:text-white">
+                      {p.name}
+                    </p>
                     <div className="mt-1 flex justify-end gap-1">
                       <TypeBadge type={p.type1} size="xs" />
                       {p.type2 && <TypeBadge type={p.type2} size="xs" />}
                     </div>
                   </div>
                   <div
-                    className="relative h-16 w-16 flex-shrink-0 bg-slate-900/50 p-1"
+                    className="relative h-16 w-16 flex-shrink-0 bg-slate-300/50 p-1 dark:bg-slate-900/50"
                     style={{
                       clipPath:
                         "polygon(0 0, 100% 0, 100% 10px, calc(100% - 10px) 100%, 0 100%)",

@@ -63,7 +63,7 @@ const AutoBattleOverlay = ({ onStop }: { onStop: () => void }) => {
       }}
     >
       <div
-        className="relative h-full w-full bg-slate-900/90 backdrop-blur-sm"
+        className="relative h-full w-full bg-white/90 backdrop-blur-sm dark:bg-slate-900/90"
         style={{ clipPath }}
       >
         {/* Grid Background */}
@@ -112,10 +112,12 @@ const AutoBattleOverlay = ({ onStop }: { onStop: () => void }) => {
           >
             <Bot className="h-14 w-14" />
           </motion.div>
-          <h3 className="text-2xl font-bold uppercase tracking-[0.2em] text-cyan-300">
+          <h3 className="text-2xl font-bold uppercase tracking-[0.2em] text-cyan-600 dark:text-cyan-300">
             Auto-Battling
           </h3>
-          <p className="text-sm text-slate-400">The AI is in control.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            The AI is in control.
+          </p>
           <motion.button
             onClick={onStop}
             whileHover={{ scale: 1.05 }}
@@ -135,7 +137,6 @@ const AutoBattleOverlay = ({ onStop }: { onStop: () => void }) => {
   );
 };
 
-// --- IMPROVED INLINE COMPONENT: ItemMenu ---
 const ItemMenu = ({
   inventory,
   onItemSelect,
@@ -158,12 +159,12 @@ const ItemMenu = ({
       className="flex h-full flex-col overflow-auto"
     >
       <div className="flex flex-shrink-0 items-center justify-between pb-2">
-        <h2 className="text-xl font-bold uppercase tracking-widest text-cyan-300">
+        <h2 className="text-xl font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-300">
           Inventory
         </h2>
         <button
           onClick={onCancel}
-          className="flex items-center gap-1 text-sm text-slate-400 transition-colors hover:text-white"
+          className="flex items-center gap-1 text-sm text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" /> Back to Moves
         </button>
@@ -179,7 +180,7 @@ const ItemMenu = ({
                   layout
                   key={item.name}
                   onClick={() => onItemSelect(item)}
-                  className="w-full bg-slate-700 p-0.5 pl-2 text-left transition-colors hover:bg-cyan-400"
+                  className="w-full bg-slate-300 p-0.5 pl-2 text-left transition-colors hover:bg-cyan-300 dark:bg-slate-700 dark:hover:bg-cyan-400"
                   style={{
                     clipPath:
                       "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)",
@@ -188,7 +189,7 @@ const ItemMenu = ({
                   whileTap={{ scale: 0.98 }}
                 >
                   <div
-                    className="bg-slate-900/80 p-2"
+                    className="bg-white/80 p-2 dark:bg-slate-900/80"
                     style={{
                       clipPath:
                         "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)",
@@ -196,12 +197,14 @@ const ItemMenu = ({
                   >
                     <div className="flex items-start justify-between">
                       <div>
-                        <p className="font-bold text-white">{item.name}</p>
-                        <p className="text-xs text-slate-400">
+                        <p className="font-bold text-slate-900 dark:text-white">
+                          {item.name}
+                        </p>
+                        <p className="text-xs text-slate-600 dark:text-slate-400">
                           {item.description}
                         </p>
                       </div>
-                      <p className="flex-shrink-0 pl-4 font-mono text-lg font-bold text-cyan-300">
+                      <p className="flex-shrink-0 pl-4 font-mono text-lg font-bold text-cyan-600 dark:text-cyan-300">
                         x{quantity}
                       </p>
                     </div>
@@ -211,7 +214,9 @@ const ItemMenu = ({
           </div>
         ) : (
           <div className="flex h-full items-center justify-center">
-            <p className="text-slate-500">No items available.</p>
+            <p className="text-slate-400 dark:text-slate-500">
+              No items available.
+            </p>
           </div>
         )}
       </div>
@@ -219,7 +224,6 @@ const ItemMenu = ({
   );
 };
 
-// --- NEW INLINE COMPONENT: SwitchItemView ---
 const SwitchItemView = ({
   onCancel,
   title,
@@ -234,8 +238,10 @@ const SwitchItemView = ({
     exit={{ opacity: 0, y: 20 }}
     className="flex h-full flex-col items-center justify-center text-center"
   >
-    <p className="text-lg font-semibold text-white">{title}</p>
-    <p className="text-sm text-slate-400">
+    <p className="text-lg font-semibold text-slate-900 dark:text-white">
+      {title}
+    </p>
+    <p className="text-sm text-slate-600 dark:text-slate-400">
       Select a Project from the list on the left.
     </p>
     <button
@@ -295,7 +301,6 @@ const StatusIcon = ({
   );
 };
 
-// --- IMPROVED STATUS EFFECT ANIMATIONS ---
 const StatusEffectDisplay = ({ status }: { status: StatusEffect }) => {
   if (!status) return null;
   const effects: { [key in StatusEffect & string]: JSX.Element } = {
@@ -412,7 +417,6 @@ const StatusEffectDisplay = ({ status }: { status: StatusEffect }) => {
   );
 };
 
-// --- BATTLE UI SUB-COMPONENTS ---
 const ScannerRing = ({
   delay,
   duration,
@@ -731,14 +735,14 @@ const HealthBar = ({
   return (
     <div className="relative w-full">
       <div
-        className="w-full bg-slate-700/80 shadow-inner"
+        className="w-full bg-slate-300/80 shadow-inner dark:bg-slate-700/80"
         style={{
           clipPath:
             "polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
         }}
       >
         <motion.div
-          className="absolute h-full bg-white/70"
+          className="absolute h-full bg-slate-200/70 dark:bg-white/70"
           style={{
             clipPath:
               "polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
@@ -765,7 +769,7 @@ const HealthBar = ({
 
       {showText && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xs font-bold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
+          <span className="text-xs font-bold text-black/70 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] dark:text-white dark:drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
             {currentHp} / {maxHp}
           </span>
         </div>
@@ -855,14 +859,14 @@ const Hud = ({
         }}
       >
         <div
-          className="relative bg-slate-900/90 p-3 pb-5 backdrop-blur-sm"
+          className="relative bg-white/90 p-3 pb-5 backdrop-blur-sm dark:bg-slate-900/90"
           style={{ clipPath: mainClipPath }}
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex-grow">
               <div className="flex items-center justify-between font-bold">
                 <div className="flex items-center gap-2">
-                  <span className="truncate text-lg uppercase tracking-wider">
+                  <span className="truncate text-lg uppercase tracking-wider text-slate-900 dark:text-white">
                     {mon.name}
                   </span>
                   <StatusIcon status={mon.status} size="md" />
@@ -884,7 +888,7 @@ const Hud = ({
             <div className="flex items-center gap-2">
               <span
                 className={`text-sm font-bold ${
-                  isPlayer ? "text-cyan-400" : "text-red-400"
+                  isPlayer ? "text-cyan-500" : "text-red-500"
                 }`}
               >
                 HP
@@ -893,7 +897,7 @@ const Hud = ({
               <HealthBar currentHp={mon.currentHp} maxHp={mon.hp} />
             </div>
 
-            <p className="absolute -bottom-4 right-0 px-3 font-mono text-xs text-slate-300">
+            <p className="absolute -bottom-4 right-0 px-3 font-mono text-xs text-slate-600 dark:text-slate-300">
               {mon.currentHp} / {mon.hp}
             </p>
           </div>
@@ -1060,17 +1064,17 @@ const TeamBar = ({
               className={`p-0.5 ${
                 isActive
                   ? "bg-cyan-500"
-                  : "bg-slate-700 enabled:hover:bg-cyan-400"
+                  : "bg-slate-300 enabled:hover:bg-cyan-300 dark:bg-slate-700 dark:enabled:hover:bg-cyan-400"
               }`}
               style={{ clipPath: cardClipPath }}
             >
               <div
-                className="bg-slate-900/80 p-2"
+                className="bg-white/80 p-2 dark:bg-slate-900/80"
                 style={{ clipPath: cardClipPath }}
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`relative h-12 w-12 flex-shrink-0 bg-slate-800 p-1 ${
+                    className={`relative h-12 w-12 flex-shrink-0 bg-slate-200 p-1 dark:bg-slate-800 ${
                       mon.currentHp <= 0 ? "grayscale" : ""
                     }`}
                     style={{
@@ -1088,7 +1092,9 @@ const TeamBar = ({
 
                   <div className="w-full">
                     <div className="flex items-center justify-between">
-                      <p className="truncate text-sm font-bold">{mon.name}</p>
+                      <p className="truncate text-sm font-bold text-slate-800 dark:text-white">
+                        {mon.name}
+                      </p>
 
                       <div className="flex gap-1">
                         <TypeBadge type={mon.type1} />
@@ -1107,11 +1113,11 @@ const TeamBar = ({
                   </div>
                 </div>
 
-                <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 border-t border-slate-700 pt-2">
+                <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1 border-t border-slate-300 pt-2 dark:border-slate-700">
                   {mon.moves.map((move) => (
                     <div
                       key={move.name}
-                      className="flex justify-between text-xs text-slate-400"
+                      className="flex justify-between text-xs text-slate-500 dark:text-slate-400"
                     >
                       <span className="truncate">{move.name}</span>
 
@@ -1149,12 +1155,12 @@ const BattleLogMessage = ({ msg }: { msg: string }) => {
         className="relative my-3 flex items-center text-center"
         aria-hidden="true"
       >
-        <div className="flex-grow border-t border-slate-700/50" />
+        <div className="flex-grow border-t border-slate-300/50 dark:border-slate-700/50" />
 
-        <span className="flex-shrink-0 px-4 text-xs font-bold uppercase tracking-widest text-cyan-500">
+        <span className="flex-shrink-0 px-4 text-xs font-bold uppercase tracking-widest text-cyan-600 dark:text-cyan-500">
           Turn {turnNumber}
         </span>
-        <div className="flex-grow border-t border-slate-700/50" />
+        <div className="flex-grow border-t border-slate-300/50 dark:border-slate-700/50" />
       </motion.div>
     );
   }
@@ -1246,11 +1252,15 @@ const BattleLogMessage = ({ msg }: { msg: string }) => {
     if (lowerMsg.includes("used"))
       return {
         icon: <Star className="h-full w-full" />,
-        color: "text-white",
+        color: "text-slate-800 dark:text-white",
         text: message,
       };
 
-    return { icon: null, color: "text-slate-400", text: message };
+    return {
+      icon: null,
+      color: "text-slate-600 dark:text-slate-400",
+      text: message,
+    };
   };
 
   const { icon, color, text } = getMessageInfo(msg);
@@ -1307,32 +1317,32 @@ const MoveInfoHover = ({
     >
       <div className="bg-cyan-400/80 p-0.5" style={{ clipPath }}>
         <div
-          className="h-full bg-slate-900/95 backdrop-blur-sm"
+          className="h-full bg-white/95 backdrop-blur-sm dark:bg-slate-900/95"
           style={{ clipPath }}
         >
           <div className="flex h-full flex-col justify-between p-2">
             <div className="flex min-h-0 flex-grow items-start gap-2">
               <div className="flex-grow basis-3/5">
-                <p className="text-xs leading-snug text-slate-300">
+                <p className="text-xs leading-snug text-slate-700 dark:text-slate-300">
                   {move.description}
                 </p>
               </div>
 
-              <div className="flex basis-2/5 flex-col justify-center gap-1 border-l border-slate-700/50 pl-2">
+              <div className="flex basis-2/5 flex-col justify-center gap-1 border-l border-slate-300/50 pl-2 dark:border-slate-700/50">
                 <div className="flex flex-col items-end">
-                  <p className="text-[9px] font-bold uppercase text-slate-400">
+                  <p className="text-[9px] font-bold uppercase text-slate-500 dark:text-slate-400">
                     Accuracy
                   </p>
-                  <p className="font-mono text-sm font-bold text-cyan-300">
+                  <p className="font-mono text-sm font-bold text-cyan-600 dark:text-cyan-300">
                     {move.accuracy * 100}%
                   </p>
                 </div>
                 {move.critChance > 0 && (
                   <div className="flex flex-col items-end">
-                    <p className="text-end text-[9px] font-bold uppercase text-slate-400">
+                    <p className="text-end text-[9px] font-bold uppercase text-slate-500 dark:text-slate-400">
                       Crit Chance
                     </p>
-                    <p className="font-mono text-sm font-bold text-yellow-300">
+                    <p className="font-mono text-sm font-bold text-yellow-500 dark:text-yellow-300">
                       {move.critChance * 100}%
                     </p>
                   </div>
@@ -1341,7 +1351,7 @@ const MoveInfoHover = ({
             </div>
 
             {move.effect && statusType && statusStyle && (
-              <div className="mt-1 flex-shrink-0 border-t border-slate-700/50 pt-1 text-center">
+              <div className="mt-1 flex-shrink-0 border-t border-slate-300/50 pt-1 text-center dark:border-slate-700/50">
                 <div
                   className={`inline-flex items-center gap-2 rounded px-2 py-0.5 ${statusStyle.bg}`}
                 >
@@ -1394,9 +1404,10 @@ const MoveButton = ({
       ? statusEffectStyles[statusType as StatusEffect]
       : null;
 
-  let frameBgClass = "bg-slate-600 enabled:hover:bg-cyan-400";
+  let frameBgClass =
+    "bg-slate-400 enabled:hover:bg-cyan-300 dark:bg-slate-600 dark:enabled:hover:bg-cyan-400";
   let contentBgClass = `${typeStyle.bg}/50`;
-  let textColorClass = "text-white";
+  let textColorClass = "text-slate-900 dark:text-white";
   let isAccented = false;
 
   if (hasStatusEffect && statusStyle) {
@@ -1408,16 +1419,12 @@ const MoveButton = ({
     contentBgClass = typeStyle.bg;
     textColorClass = typeStyle.text;
     isAccented = true;
-  } else {
-    frameBgClass = "bg-slate-600 enabled:hover:bg-cyan-400";
-    contentBgClass = `${typeStyle.bg}/50`;
-    textColorClass = "text-white";
   }
 
   if (outOfPP) {
     frameBgClass = "bg-red-500/50";
-    contentBgClass = "bg-slate-800";
-    textColorClass = "text-slate-500";
+    contentBgClass = "bg-slate-300 dark:bg-slate-800";
+    textColorClass = "text-slate-400 dark:text-slate-500";
     isAccented = false;
   }
 
@@ -1430,7 +1437,7 @@ const MoveButton = ({
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{ scale: 1.05, zIndex: 50 }}
       whileTap={{ scale: 0.95 }}
-      className={`group relative h-full text-left shadow-lg transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50`}
+      className={`group relative h-full text-left transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50`}
       disabled={disabled || outOfPP}
       onClick={() => onSelect(move)}
     >
@@ -1538,7 +1545,7 @@ const SpeechBubble = ({
         style={{ clipPath }}
       >
         <div
-          className="bg-slate-900/90 px-4 py-2 text-center text-sm font-semibold text-white backdrop-blur-sm"
+          className="bg-white/90 px-4 py-2 text-center text-sm font-semibold text-slate-900 backdrop-blur-sm dark:bg-slate-900/90 dark:text-white"
           style={{ clipPath }}
         >
           {text}
@@ -1649,7 +1656,6 @@ const NotificationDisplay = ({
   );
 };
 
-// --- MAIN BATTLE SCREEN COMPONENT ---
 interface FightScreenProps {
   playerMon: BattleReadyMon;
   cpuMon: BattleReadyMon;
@@ -1673,7 +1679,7 @@ interface FightScreenProps {
   gameState: "fight" | "forcedSwitch";
   isAutoBattleActive: boolean;
   toggleAutoBattle: () => void;
-  background: number; // ADDED
+  background: number;
 }
 
 const Corner = ({ position }: { position: string }) => (
@@ -1795,7 +1801,7 @@ export const FightScreen = ({
   gameState,
   isAutoBattleActive,
   toggleAutoBattle,
-  background, // DESTRUCTURED
+  background,
 }: FightScreenProps) => {
   const [actionState, setActionState] = useState<ActionState>("moves");
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -1866,7 +1872,7 @@ export const FightScreen = ({
 
   return (
     <div
-      className="relative h-full w-full select-none overflow-hidden bg-slate-900 text-white transition-all duration-500"
+      className="relative h-full w-full select-none overflow-hidden text-slate-900 transition-all duration-500 dark:text-white"
       style={{
         backgroundImage: `url(/images/backgrounds/background-${background}.jpg)`,
         backgroundSize: "cover",
@@ -1894,7 +1900,7 @@ export const FightScreen = ({
             animate={{ y: 0, opacity: 1, scale: [1, 1.2, 1] }}
             exit={{ y: 20, opacity: 0 }}
             transition={{ duration: 0.3, ease: "backOut" }}
-            className="bg-black/50 px-4 py-1.5 text-sm font-bold tracking-wider backdrop-blur-sm"
+            className="bg-white/50 px-4 py-1.5 text-sm font-bold tracking-wider text-slate-900 backdrop-blur-sm dark:bg-black/50 dark:text-white"
             style={{
               clipPath:
                 "polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%)",
@@ -1905,7 +1911,6 @@ export const FightScreen = ({
         </AnimatePresence>
       </div>
 
-      {/* FIXED: Speech Bubbles moved to a higher level in the DOM tree */}
       <AnimatePresence>
         {dialogue.cpu && (
           <div className="absolute top-[8%] right-[5%] z-[80] aspect-[2/1] w-[45%] max-w-lg">
@@ -2071,7 +2076,7 @@ export const FightScreen = ({
         initial={{ y: "100%" }}
         animate={{ y: "0%" }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="absolute bottom-0 left-0 right-0 z-40 h-[33.33%] bg-slate-800/80 p-1 backdrop-blur-sm"
+        className="absolute bottom-0 left-0 right-0 z-40 h-[33.33%] bg-white/80 p-1 backdrop-blur-sm dark:bg-slate-800/80"
         style={{
           clipPath: "polygon(0 15px, 15px 0, 100% 0, 100% 100%, 0 100%)",
         }}
@@ -2091,7 +2096,7 @@ export const FightScreen = ({
               )}
           </AnimatePresence>
           <div
-            className="flex h-full w-full bg-slate-900/90"
+            className="flex h-full w-full bg-white/90 dark:bg-slate-900/90"
             style={{
               clipPath: "polygon(0 15px, 15px 0, 100% 0, 100% 100%, 0 100%)",
             }}
@@ -2099,7 +2104,7 @@ export const FightScreen = ({
             <div className="relative w-[35%]">
               <div
                 ref={logContainerRef}
-                className="flex h-full flex-col gap-1.5 overflow-y-auto scroll-smooth bg-gradient-to-t from-slate-900/80 to-slate-800/80 p-4 pt-2 [mask-image:linear-gradient(to_bottom,transparent_0,_black_24px,_black_calc(100%-24px),transparent_100%)]"
+                className="flex h-full flex-col gap-1.5 overflow-y-auto scroll-smooth bg-gradient-to-t from-white/80 to-slate-100/80 p-4 pt-2 [mask-image:linear-gradient(to_bottom,transparent_0,_black_24px,_black_calc(100%-24px),transparent_100%)] dark:from-slate-900/80 dark:to-slate-800/80"
               >
                 {battleLog.map((msg, i) => (
                   <BattleLogMessage key={`${i}-${msg}`} msg={msg} />
@@ -2191,7 +2196,7 @@ export const FightScreen = ({
                   </AnimatePresence>
                 </div>
 
-                <div className="mt-3 grid flex-shrink-0 grid-cols-4 gap-2 border-t-2 border-cyan-400/50 pt-2">
+                <div className="mt-3 grid flex-shrink-0 grid-cols-4 gap-2 border-t-2 border-slate-300/50 pt-2 dark:border-cyan-400/50">
                   <ActionButton
                     icon={<ArrowRightLeft className="h-4 w-4" />}
                     onClick={() => setActionState("switch")}
