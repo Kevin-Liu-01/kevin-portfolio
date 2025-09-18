@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useCallback,
   useRef,
-  ReactNode,
+  type ReactNode,
   useMemo,
 } from "react";
 import {
@@ -496,7 +496,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
               superEffectiveHits: prev.superEffectiveHits + 1,
             }));
           }
-          let baseDamage =
+          const baseDamage =
             (move.power * (attacker.stats.atk / defender.stats.def)) / 5 + 2;
           damage = Math.floor(baseDamage * (Math.random() * 0.15 + 0.85));
           damage = Math.floor(damage * effectiveness.multiplier);

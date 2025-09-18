@@ -394,7 +394,7 @@ export const GuideModal = ({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="relative flex h-full max-h-[90vh] w-full max-w-3xl flex-col border border-slate-600 bg-slate-800 shadow-2xl"
+            className="relative flex h-full max-h-[60vh] w-full max-w-3xl flex-col border border-slate-600 bg-slate-800 shadow-2xl"
             onClick={(e: React.MouseEvent<HTMLDivElement>) =>
               e.stopPropagation()
             }

@@ -5,7 +5,7 @@ import { ThemeProvider } from "next-themes";
 import { api } from "../utils/api";
 
 import "~/styles/globals.css";
-import { GameProvider } from "./providers/gameProvider";
+import { GameProvider } from "../providers/gameProvider";
 
 const App: AppType<{ session: Session | null }> = ({
   Component,

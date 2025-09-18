@@ -1,19 +1,19 @@
 import { type NextPage } from "next";
 import { useState } from "react";
-import Navbar from "./components/navbar";
-import GameScreenManager from "./components/game/gameScreenManager";
+import Navbar from "../components/navbar";
+import GameScreenManager from "../components/game/gameScreenManager";
 
 const Home: NextPage = () => {
   const [translate, setTranslate] = useState(false);
   // --- PAGE LAYOUT STATE ---
-  const [pattern, setPattern] = useState("cross");
+  // const [pattern, setPattern] = useState("cross");
   const [font, setFont] = useState("font-exo");
 
   // --- PAGE LAYOUT HANDLERS ---
-  const patternBG = () =>
-    setPattern((p) =>
-      p === "cross" ? "dots" : p === "dots" ? "paper" : "cross"
-    );
+  // const patternBG = () =>
+  //   setPattern((p) =>
+  //     p === "cross" ? "dots" : p === "dots" ? "paper" : "cross"
+  //   );
   const fontInitializer = () =>
     setFont((f) =>
       f === "font-orbiter"
@@ -22,14 +22,14 @@ const Home: NextPage = () => {
         ? "font-racing"
         : "font-orbiter"
     );
-  const patternStyles = () =>
-    `absolute inset-0 z-0 h-full w-full pattern-gray-500/10 pattern-bg-transparent pattern-size-6 transition-opacity duration-300 ${
-      pattern === "cross"
-        ? "pattern-cross"
-        : pattern === "dots"
-        ? "pattern-dots"
-        : "pattern-paper"
-    }`;
+  // const patternStyles = () =>
+  //   `absolute inset-0 z-0 h-full w-full pattern-gray-500/10 pattern-bg-transparent pattern-size-6 transition-opacity duration-300 ${
+  //     pattern === "cross"
+  //       ? "pattern-cross"
+  //       : pattern === "dots"
+  //       ? "pattern-dots"
+  //       : "pattern-paper"
+  //   }`;
 
   return (
     <main
@@ -39,11 +39,9 @@ const Home: NextPage = () => {
           font === "font-orbiter" ? "'Orbiter', sans-serif" : undefined,
       }}
     >
-      <div className={patternStyles()} />
+      {/* <div className={patternStyles()} /> */}
       <div className="relative z-20">
         <Navbar
-          pattern={pattern}
-          patternBG={patternBG}
           menuHandler={() => setTranslate(!translate)}
           fontInitializer={fontInitializer}
         />

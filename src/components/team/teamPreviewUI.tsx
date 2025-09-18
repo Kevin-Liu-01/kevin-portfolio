@@ -68,8 +68,8 @@ export const TeamPreviewScreen = () => {
                     <Image
                       src={p.image}
                       alt={p.name}
-                      layout="fill"
-                      objectFit="contain"
+                      fill
+                      className="object-contain"
                     />
                   </div>
                   <div>
@@ -138,8 +138,8 @@ export const TeamPreviewScreen = () => {
                     <Image
                       src={p.image}
                       alt={p.name}
-                      layout="fill"
-                      objectFit="contain"
+                      fill
+                      className="object-contain"
                     />
                   </div>
                 </div>

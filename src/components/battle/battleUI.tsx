@@ -33,7 +33,7 @@ import type {
 import {
   statusEffectStyles,
   statusEffectIcons,
-  getTypeEffectiveness as importedGetTypeEffectiveness,
+  type getTypeEffectiveness as importedGetTypeEffectiveness,
 } from "../../context/gameContext";
 import {
   GuideModal,
@@ -1553,10 +1553,7 @@ const NotificationDisplay = ({
 }: {
   notification: { id: number; message: string; type: NotificationType } | null;
 }) => {
-  const getNotificationStyle = (
-    type: NotificationType,
-    message: string = ""
-  ) => {
+  const getNotificationStyle = (type: NotificationType, message = "") => {
     const lowerMsg = message.toLowerCase();
     switch (type) {
       case "critical":

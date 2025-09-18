@@ -357,7 +357,7 @@ const LogoContainer = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <motion.div
-      className="relative flex w-1/3 min-w-fit items-center overflow-hidden bg-slate-800/90 py-3 pl-4 pr-12 sm:pl-6 lg:pl-8"
+      className="relative flex w-full min-w-fit items-center overflow-hidden bg-slate-800/90 py-3 pl-4 pr-12 sm:pl-6 lg:pl-8"
       style={{
         clipPath: "polygon(0 0, 100% 0, calc(100% - 40px) 100%, 0 100%)",
       }}
@@ -522,9 +522,11 @@ const Navbar = (props: {
       </div>
 
       <div className="relative z-10 flex h-full w-full items-stretch justify-start">
-        <LogoContainer>
-          <PortfolioMonLogo />
-        </LogoContainer>
+        <button onClick={handleReset} aria-label="Home" className="w-1/3">
+          <LogoContainer>
+            <PortfolioMonLogo />
+          </LogoContainer>
+        </button>
 
         <div className="ml-auto flex items-center gap-3 pr-4 sm:pr-6 lg:pr-8">
           <div className="hidden items-center gap-3 sm:flex">

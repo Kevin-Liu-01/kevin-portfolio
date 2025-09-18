@@ -547,9 +547,9 @@ const MonDetailView = ({
                 <Image
                   src={mon.image}
                   alt={mon.name}
-                  layout="fill"
-                  objectFit="contain"
+                  fill
                   priority
+                  className="object-contain"
                 />
               </motion.div>
               <div
@@ -1186,11 +1186,9 @@ const TrainerInfoPanel = ({
               >
                 <Image
                   src="/images/kevin_sidebar.png"
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="center"
+                  fill
                   alt="Kevin Liu"
-                  className="scale-110"
+                  className="scale-110 object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
               </div>
@@ -1345,9 +1343,8 @@ const TrainerInfoPanel = ({
                             <Image
                               src={mon.image}
                               alt={mon.name}
-                              layout="fill"
-                              objectFit="contain"
-                              className="p-1"
+                              fill
+                              className="object-contain p-1"
                             />
                           </motion.div>
                         ) : (
@@ -1504,8 +1501,8 @@ const MonGridItem = ({
             <Image
               src={mon.image}
               alt={mon.name}
-              layout="fill"
-              objectFit="contain"
+              fill
+              className="object-contain"
             />
           </div>
           <div className="text-left">

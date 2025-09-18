@@ -87,10 +87,12 @@ const TrainerPodium = ({
         <Image
           src={trainerImage}
           alt={isPlayer ? "Player Trainer" : "CPU Trainer"}
-          layout="fill"
-          objectFit="contain"
-          objectPosition="bottom center"
-          className={!isPlayer ? "-scale-x-100" : ""}
+          fill
+          className={
+            !isPlayer
+              ? "-scale-x-100 object-contain object-bottom"
+              : "object-contain object-bottom"
+          }
           priority
         />
       </motion.div>
