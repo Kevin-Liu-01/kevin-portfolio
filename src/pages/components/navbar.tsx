@@ -17,8 +17,6 @@ import {
   CheckSquare,
   Bot,
   Layers,
-  Save,
-  FolderDown,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useGame } from "../providers/gameProvider";

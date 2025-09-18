@@ -268,7 +268,7 @@ export const GameOverScreen = () => {
                   "polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%)",
               }}
             >
-              ENGAGE AGAIN
+              BATTLE AGAIN
             </motion.button>
           </motion.div>
         </motion.div>
